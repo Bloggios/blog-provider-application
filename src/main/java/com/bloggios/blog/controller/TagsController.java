@@ -25,6 +25,7 @@ public class TagsController {
 
     @GetMapping
     public String getData() {
+        return null;
     }
 
 }

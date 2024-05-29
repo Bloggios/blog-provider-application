@@ -1,6 +1,6 @@
 spring:
   application:
-    name: user-provider-application
+    name: blog-provider-application
   kafka:
     bootstrap-servers: ${BOOTSTRAP_SERVER}
     producer:
@@ -16,7 +16,7 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
         spring.json.trusted.packages: com.bloggios.user
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE}?currentSchema=user-provider
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT:5432}/${POSTGRES_DATABASE}?currentSchema=blog-provider
     hikari:
       username: ${POSTGRES_USERNAME}
       password: ${POSTGRES_PASSWORD}
@@ -39,7 +39,7 @@ elasticsearch:
   username: ${ES_USERNAME:root}
   password: ${ES_PASSWORD:root}
   indices:
-    profile: ${ACTIVE_PROFILE:local}.user-provider.profile
+    blog: ${ACTIVE_PROFILE:local}.blog-provider.blog
 
 eureka:
   instance:
@@ -57,16 +57,15 @@ management:
       exposure:
         include: prometheus
 
-user-provider:
-  kafka:
-    producer:
-      topics:
-        registration-otp: ${ACTIVE_PROFILE:local}.auth-provider.registration-otp
-        password-changed: ${ACTIVE_PROFILE:local}.auth-provider.password-changed
-        forget-password: ${ACTIVE_PROFILE:local}.auth-provider.forget-password
-        user: ${ACTIVE_PROFILE:local}.auth-provider.user
-    consumer:
-      group-id: ${ACTIVE_PROFILE:local}.auth-provider.application
-      topics:
-        profile-added: ${ACTIVE_PROFILE:local}.user-provider.profile-added
-        profile-badge: ${ACTIVE_PROFILE:local}.user-provider.profile-badge
+security-config:
+  exclude:
+    paths:
+      - /actuator/**
+      - /tags/**
+  cookie:
+    cookie-name: ${ACTIVE_PROFILE:local}.bg-refresh-mgmt
+    paths:
+      - /user-provider/profile-auth/**
+  key-provider:
+    public-key: classpath:security/pubkey.pem
+    private-key: classpath:security/privkey.pem

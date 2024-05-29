@@ -1,0 +1,528 @@
+tag-data:
+  provider:
+    # Programming languages
+    java:
+      tag: Java
+      category: PROGRAMMING
+    python:
+      tag: Python
+      category: PROGRAMMING
+    javascript:
+      tag: JavaScript
+      category: PROGRAMMING
+    csharp:
+      tag: C#
+      category: PROGRAMMING
+    cplusplus:
+      tag: C++
+      category: PROGRAMMING
+    typescript:
+      tag: TypeScript
+      category: PROGRAMMING
+    ruby:
+      tag: Ruby
+      category: PROGRAMMING
+    swift:
+      tag: Swift
+      category: PROGRAMMING
+    golang:
+      tag: Go
+      category: PROGRAMMING
+    php:
+      tag: PHP
+      category: PROGRAMMING
+    rust:
+      tag: Rust
+      category: PROGRAMMING
+    kotlin:
+      tag: Kotlin
+      category: PROGRAMMING
+    dart:
+      tag: Dart
+      category: PROGRAMMING
+    scala:
+      tag: Scala
+      category: PROGRAMMING
+    haskell:
+      tag: Haskell
+      category: PROGRAMMING
+    elixir:
+      tag: Elixir
+      category: PROGRAMMING
+    clojure:
+      tag: Clojure
+      category: PROGRAMMING
+    r:
+      tag: R
+      category: PROGRAMMING
+
+    # Frameworks and Libraries
+    springBoot:
+      tag: Spring Boot
+      category: PROGRAMMING
+    oauth2O:
+      tag: OAuth2.0
+      category: PROGRAMMING
+    django:
+      tag: Django
+      category: PROGRAMMING
+    flask:
+      tag: Flask
+      category: PROGRAMMING
+    expressjs:
+      tag: Express.js
+      category: PROGRAMMING
+    laravel:
+      tag: Laravel
+      category: PROGRAMMING
+    react:
+      tag: React
+      category: PROGRAMMING
+    angular:
+      tag: Angular
+      category: PROGRAMMING
+    vuejs:
+      tag: Vue.js
+      category: PROGRAMMING
+    nodejs:
+      tag: Node.js
+      category: PROGRAMMING
+    nextjs:
+      tag: Next.js
+      category: PROGRAMMING
+    svelte:
+      tag: Svelte
+      category: PROGRAMMING
+    emberjs:
+      tag: Ember.js
+      category: PROGRAMMING
+    spring:
+      tag: Spring
+      category: PROGRAMMING
+    rubyOnRails:
+      tag: Ruby on Rails
+      category: PROGRAMMING
+    flutter:
+      tag: Flutter
+      category: PROGRAMMING
+    reactNative:
+      tag: React Native
+      category: PROGRAMMING
+
+    # Databases
+    mongodb:
+      tag: MongoDB
+      category: PROGRAMMING
+    mysql:
+      tag: MySQL
+      category: PROGRAMMING
+    postgresql:
+      tag: PostgreSQL
+      category: PROGRAMMING
+    sqlite:
+      tag: SQLite
+      category: PROGRAMMING
+    redis:
+      tag: Redis
+      category: PROGRAMMING
+    cassandra:
+      tag: Cassandra
+      category: PROGRAMMING
+    neo4j:
+      tag: Neo4j
+      category: PROGRAMMING
+    couchbase:
+      tag: Couchbase
+      category: PROGRAMMING
+    dynamodb:
+      tag: DynamoDB
+      category: PROGRAMMING
+
+    # Tools and Technologies
+    docker:
+      tag: Docker
+      category: PROGRAMMING
+    kubernetes:
+      tag: Kubernetes
+      category: PROGRAMMING
+    jenkins:
+      tag: Jenkins
+      category: PROGRAMMING
+    git:
+      tag: Git
+      category: PROGRAMMING
+    github:
+      tag: GitHub
+      category: PROGRAMMING
+    gitlab:
+      tag: GitLab
+      category: PROGRAMMING
+    npm:
+      tag: npm
+      category: PROGRAMMING
+    yarn:
+      tag: Yarn
+      category: PROGRAMMING
+    webpack:
+      tag: Webpack
+      category: PROGRAMMING
+    babel:
+      tag: Babel
+      category: PROGRAMMING
+    redux:
+      tag: Redux
+      category: PROGRAMMING
+    graphql:
+      tag: GraphQL
+      category: PROGRAMMING
+    aws:
+      tag: AWS
+      category: PROGRAMMING
+    azure:
+      tag: Azure
+      category: PROGRAMMING
+    googleCloud:
+      tag: Google Cloud
+      category: PROGRAMMING
+    ansible:
+      tag: Ansible
+      category: PROGRAMMING
+    terraform:
+      tag: Terraform
+      category: PROGRAMMING
+    prometheus:
+      tag: Prometheus
+      category: PROGRAMMING
+    grafana:
+      tag: Grafana
+      category: PROGRAMMING
+    backendDevelopment:
+      tag: Backend Development
+      category: PROGRAMMING
+    frontendDevelopment:
+      tag: Frontend Development
+      category: PROGRAMMING
+    fullstackDevelopment:
+      tag: Fullstack Development
+      category: PROGRAMMING
+    mobileDevelopment:
+      tag: Mobile Development
+      category: PROGRAMMING
+
+    # Engineering
+    mechanicalEngineering:
+      tag: Mechanical Engineering
+      category: ENGINEERING
+    electricalEngineering:
+      tag: Electrical Engineering
+      category: ENGINEERING
+    civilEngineering:
+      tag: Civil Engineering
+      category: ENGINEERING
+    chemicalEngineering:
+      tag: Chemical Engineering
+      category: ENGINEERING
+    computerEngineering:
+      tag: Computer Engineering
+      category: ENGINEERING
+    aerospaceEngineering:
+      tag: Aerospace Engineering
+      category: ENGINEERING
+    biomedicalEngineering:
+      tag: Biomedical Engineering
+      category: ENGINEERING
+    industrialEngineering:
+      tag: Industrial Engineering
+      category: ENGINEERING
+    environmentalEngineering:
+      tag: Environmental Engineering
+      category: ENGINEERING
+    petroleumEngineering:
+      tag: Petroleum Engineering
+      category: ENGINEERING
+    nuclearEngineering:
+      tag: Nuclear Engineering
+      category: ENGINEERING
+    structuralEngineering:
+      tag: Structural Engineering
+      category: ENGINEERING
+    mechatronicsEngineering:
+      tag: Mechatronics Engineering
+      category: ENGINEERING
+    telecommunicationsEngineering:
+      tag: Telecommunications Engineering
+      category: ENGINEERING
+    softwareEngineering:
+      tag: Software Engineering
+      category: ENGINEERING
+    systemsEngineering:
+      tag: Systems Engineering
+      category: ENGINEERING
+    materialsScienceEngineering:
+      tag: Materials Science Engineering
+      category: ENGINEERING
+    nanotechnology:
+      tag: Nanotechnology
+      category: ENGINEERING
+    biotechnology:
+      tag: Biotechnology
+      category: ENGINEERING
+    controlSystemsEngineering:
+      tag: Control Systems Engineering
+      category: ENGINEERING
+    roboticsEngineering:
+      tag: Robotics Engineering
+      category: ENGINEERING
+    opticalEngineering:
+      tag: Optical Engineering
+      category: ENGINEERING
+    geotechnicalEngineering:
+      tag: Geotechnical Engineering
+      category: ENGINEERING
+    miningEngineering:
+      tag: Mining Engineering
+      category: ENGINEERING
+    waterResourcesEngineering:
+      tag: Water Resources Engineering
+      category: ENGINEERING
+    marineEngineering:
+      tag: Marine Engineering
+      category: ENGINEERING
+    acousticEngineering:
+      tag: Acoustic Engineering
+      category: ENGINEERING
+    automotiveEngineering:
+      tag: Automotive Engineering
+      category: ENGINEERING
+    agriculturalEngineering:
+      tag: Agricultural Engineering
+      category: ENGINEERING
+    biomechanicalEngineering:
+      tag: Biomechanical Engineering
+      category: ENGINEERING
+    powerEngineering:
+      tag: Power Engineering
+      category: ENGINEERING
+
+    # Jobs
+    jobSearch:
+      tag: Job Search
+      category: JOBS
+    jobInterview:
+      tag: Job Interview
+      category: JOBS
+    resumeWriting:
+      tag: Resume Writing
+      category: JOBS
+    coverLetter:
+      tag: Cover Letter
+      category: JOBS
+    jobApplication:
+      tag: Job Application
+      category: JOBS
+    careerAdvice:
+      tag: Career Advice
+      category: JOBS
+    networking:
+      tag: Networking
+      category: JOBS
+    freelancing:
+      tag: Freelancing
+      category: JOBS
+    remoteWork:
+      tag: Remote Work
+      category: JOBS
+    salaryNegotiation:
+      tag: Salary Negotiation
+      category: JOBS
+    professionalDevelopment:
+      tag: Professional Development
+      category: JOBS
+    workLifeBalance:
+      tag: Work-Life Balance
+      category: JOBS
+    politics:
+      tag: Politics
+      category: POLITICS
+    government:
+      tag: Government
+      category: POLITICS
+    elections:
+      tag: Elections
+      category: POLITICS
+    democracy:
+      tag: Democracy
+      category: POLITICS
+    politicalParties:
+      tag: Political Parties
+      category: POLITICS
+    politicalIdeology:
+      tag: Political Ideology
+      category: POLITICS
+    policyMaking:
+      tag: Policy Making
+      category: POLITICS
+    internationalRelations:
+      tag: International Relations
+      category: POLITICS
+    politicalScience:
+      tag: Political Science
+      category: POLITICS
+    politicalHistory:
+      tag: Political History
+      category: POLITICS
+    politicalActivism:
+      tag: Political Activism
+      category: POLITICS
+    politicalLeadership:
+      tag: Political Leadership
+      category: POLITICS
+    politicalPhilosophy:
+      tag: Political Philosophy
+      category: POLITICS
+    politicalReform:
+      tag: Political Reform
+      category: POLITICS
+
+    # Others
+    studyTips:
+      tag: Study Tips
+      category: OTHERS
+    education:
+      tag: Education
+      category: OTHERS
+    learningStrategies:
+      tag: Learning Strategies
+      category: OTHERS
+    selfImprovement:
+      tag: Self-Improvement
+      category: OTHERS
+    personalDevelopment:
+      tag: Personal Development
+      category: OTHERS
+    timeManagement:
+      tag: Time Management
+      category: OTHERS
+    stressManagement:
+      tag: Stress Management
+      category: OTHERS
+    mentalHealth:
+      tag: Mental Health
+      category: OTHERS
+    wellness:
+      tag: Wellness
+      category: OTHERS
+    productivity:
+      tag: Productivity
+      category: OTHERS
+    communicationSkills:
+      tag: Communication Skills
+      category: OTHERS
+    interpersonalSkills:
+      tag: Interpersonal Skills
+      category: OTHERS
+    conflictResolution:
+      tag: Conflict Resolution
+      category: OTHERS
+    relationshipAdvice:
+      tag: Relationship Advice
+      category: OTHERS
+    datingTips:
+      tag: Dating Tips
+      category: OTHERS
+    marriageAdvice:
+      tag: Marriage Advice
+      category: OTHERS
+    artificialIntelligence:
+      tag: Artificial Intelligence
+      category: OTHERS
+    machineLearning:
+      tag: Machine Learning
+      category: OTHERS
+    deepLearning:
+      tag: Deep Learning
+      category: OTHERS
+    computerScience:
+      tag: Computer Science
+      category: OTHERS
+    softwareDevelopment:
+      tag: Software Development
+      category: OTHERS
+    dataScience:
+      tag: Data Science
+      category: OTHERS
+    technologyTrends:
+      tag: Technology Trends
+      category: OTHERS
+    internetOfThings:
+      tag: Internet of Things
+      category: OTHERS
+    cybersecurity:
+      tag: Cybersecurity
+      category: OTHERS
+    cloudComputing:
+      tag: Cloud Computing
+      category: OTHERS
+    digitalMarketing:
+      tag: Digital Marketing
+      category: OTHERS
+    entrepreneurship:
+      tag: Entrepreneurship
+      category: OTHERS
+    finance:
+      tag: Finance
+      category: OTHERS
+    investment:
+      tag: Investment
+      category: OTHERS
+    budgeting:
+      tag: Budgeting
+      category: OTHERS
+    realEstate:
+      tag: Real Estate
+      category: OTHERS
+    healthAndFitness:
+      tag: Health and Fitness
+      category: OTHERS
+    nutrition:
+      tag: Nutrition
+      category: OTHERS
+    workouts:
+      tag: Workouts
+      category: OTHERS
+    cookingTips:
+      tag: Cooking Tips
+      category: OTHERS
+    travelGuides:
+      tag: Travel Guides
+      category: OTHERS
+    languageLearning:
+      tag: Language Learning
+      category: OTHERS
+    history:
+      tag: History
+      category: OTHERS
+    geography:
+      tag: Geography
+      category: OTHERS
+    literature:
+      tag: Literature
+      category: OTHERS
+    art:
+      tag: Art
+      category: OTHERS
+    music:
+      tag: Music
+      category: OTHERS
+    filmAndCinema:
+      tag: Film and Cinema
+      category: OTHERS
+    sports:
+      tag: Sports
+      category: OTHERS
+    outdoorActivities:
+      tag: Outdoor Activities
+      category: OTHERS
+    networkMarketing:
+      tag: Network Marketing
+      category: OTHERS

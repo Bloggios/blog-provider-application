@@ -45,7 +45,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class InternalExceptionCodes {
 
-    public static final String JSON_DESERIALIZATION = "IE__USER-1001";
-    public static final String INTERNAL_ERROR = "IE__USER-1002";
-    public static final String FAILED_TO_FETCH_EXCEPTION_CODES = "IE__USER-1003";
+    public static final String JSON_DESERIALIZATION = "IE__BLOG-1001";
+    public static final String INTERNAL_ERROR = "IE__BLOG-1002";
+    public static final String FAILED_TO_FETCH_EXCEPTION_CODES = "IE__BLOG-1003";
+    public static final String ASYNC_IMAGE_UPLOAD_ERROR = "IE__BLOG-1004";
 }

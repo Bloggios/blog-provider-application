@@ -43,4 +43,11 @@ public class BadRequestException extends ExceptionProvider {
     public BadRequestException(String code) {
         super(code);
     }
+
+    public BadRequestException(String code, String message) {
+        super(code);
+        this.message = message;
+    }
+
+    private String message;
 }

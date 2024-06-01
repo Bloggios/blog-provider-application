@@ -33,6 +33,9 @@ spring:
 application:
   version: @version@
   profile: ${ACTIVE_PROFILE}
+  environment:
+    devsandbox-assets: https://assets.bloggios.cloud/blog-provider
+    production-assets: https://assets.bloggios.com/blog-provider
 
 elasticsearch:
   server: ${ES_SERVER:localhost}
@@ -40,6 +43,7 @@ elasticsearch:
   password: ${ES_PASSWORD:root}
   indices:
     blog: ${ACTIVE_PROFILE:local}.blog-provider.blog
+    chapter: ${ACTIVE_PROFILE:local}.blog-provider.chapter
 
 eureka:
   instance:
@@ -69,3 +73,7 @@ security-config:
   key-provider:
     public-key: classpath:security/pubkey.pem
     private-key: classpath:security/privkey.pem
+
+blog-files:
+  blog-images: ${BLOG_IMAGES_PATH:files/blog-provider/blog}
+  cover-images: ${COVER_IMAGES_PATH:files/blog-provider/cover}

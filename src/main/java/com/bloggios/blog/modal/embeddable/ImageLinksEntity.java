@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023-2024 Bloggios
+ * Copyright © 2023-2024 Rohit Parihar and Bloggios
  * All rights reserved.
  * This software is the property of Rohit Parihar and is protected by copyright law.
  * The software, including its source code, documentation, and associated files, may not be used, copied, modified, distributed, or sublicensed without the express written consent of Rohit Parihar.
@@ -21,33 +21,41 @@
  * limitations under the License.
  */
 
-package com.bloggios.blog.constants;
+package com.bloggios.blog.modal.embeddable;
 
-import lombok.experimental.UtilityClass;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /**
  * Owner - Rohit Parihar
  * Author - rohit
- * Project - auth-provider-application
- * Package - com.bloggios.auth.provider.constants
- * Created_on - 29 November-2023
- * Created_at - 00 : 58
+ * Project - question-provider-application
+ * Package - com.bloggios.question.provider.model.embeddable
+ * Created_on - 13 March-2024
+ * Created_at - 14 : 08
  */
 
-@UtilityClass
-public class EnvironmentConstants {
+@Embeddable
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ImageLinksEntity {
 
-    public static final String APPLICATION_VERSION = "application.version";
-    public static final String KAFKA_GROUP_ID = "user-provider.kafka.consumer.group-id";
-    public static final String ES_SERVER = "elasticsearch.server";
-    public static final String ES_USERNAME = "elasticsearch.username";
-    public static final String ES_PASSWORD = "elasticsearch.password";
-    public static final String ES_SETTING = "/es-setting.json";
-    public static final String CHAPTER_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.chapter')}";
-    public static final String BLOG_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.blog')}";
-    public static final String APPLICATION_PROFILE = "application.profile";
-    public static final String DEVSANDBOX_ASSETS = "application.environment.devsandbox-assets";
-    public static final String PRODUCTION_ASSETS = "application.environment.production-assets";
-    public static final String BLOG_IMAGES_PATH = "blog-files.blog-images";
-    public static final String COVER_IMAGES_PATH = "blog-files.cover-images";
+    @Column(nullable = false, unique = true)
+    private String link;
+
+    @Column(nullable = false)
+    private String size;
+
+    @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false, unique = true)
+    private String name;
 }

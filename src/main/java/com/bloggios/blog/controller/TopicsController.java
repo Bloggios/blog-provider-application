@@ -1,14 +1,13 @@
 package com.bloggios.blog.controller;
 
 import com.bloggios.blog.constants.EndpointConstants;
-import com.bloggios.blog.payload.TagYmlDataProvider;
-import com.bloggios.blog.ymlparser.TagDataParser;
+import com.bloggios.blog.payload.response.TopicsListResponse;
+import com.bloggios.blog.service.TopicsService;
+import com.bloggios.blog.utils.AsyncUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 /**
  * Owner - Rohit Parihar and Bloggios
@@ -21,11 +20,18 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(EndpointConstants.TagsController.BASE_PATH)
-public class TagsController {
+public class TopicsController {
 
-    @GetMapping
-    public String getData() {
-        return null;
+    private final TopicsService topicsService;
+
+    public TopicsController(
+            TopicsService topicsService
+    ) {
+        this.topicsService = topicsService;
     }
 
+    @GetMapping
+    public ResponseEntity<TopicsListResponse> getTags() {
+        return ResponseEntity.ok(AsyncUtils.getAsyncResult(topicsService.tagsList()));
+    }
 }

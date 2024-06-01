@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023-2024 Bloggios
+ * Copyright © 2023-2024 Rohit Parihar and Bloggios
  * All rights reserved.
  * This software is the property of Rohit Parihar and is protected by copyright law.
  * The software, including its source code, documentation, and associated files, may not be used, copied, modified, distributed, or sublicensed without the express written consent of Rohit Parihar.
@@ -21,50 +21,33 @@
  * limitations under the License.
  */
 
-package com.bloggios.blog.dao;
+package com.bloggios.blog.payload.record;
 
-import com.bloggios.blog.enums.DaoStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * Owner - Rohit Parihar
  * Author - rohit
- * Project - auth-provider-application
- * Package - com.bloggios.auth.provider.dao
- * Created_on - 29 November-2023
- * Created_at - 23 : 55
+ * Project - question-provider-application
+ * Package - com.bloggios.question.provider.payload.records
+ * Created_on - 13 March-2024
+ * Created_at - 17 : 05
  */
 
-public abstract class AbstractDao<A, B extends JpaRepository<A, String>> {
-
-    private static final Logger logger = LoggerFactory.getLogger(AbstractDao.class);
-
-    protected final B repository;
-
-    protected AbstractDao(
-            B repository
-    ) {
-        this.repository = repository;
+public record UploadImagePayloadRecord(
+        String path,
+        String userId,
+        MultipartFile file,
+        List<MultipartFile> files,
+        String uploadFor
+) {
+    public UploadImagePayloadRecord(String path, String userId, MultipartFile file) {
+        this(path, userId, file, null, null);
     }
 
-    public final A initOperation(DaoStatus status, A a) {
-        return switch (status) {
-            case CREATE -> initCreate(a);
-            case UPDATE -> initUpdate(a);
-        };
-    }
-
-    protected A initUpdate(A a) {
-        logger.info("Postgres Init Operation (Update) @{}", new Date());
-        return repository.save(a);
-    }
-
-    protected A initCreate(A a) {
-        logger.info("Postgres Init Operation (Create) @{}", new Date());
-        return repository.save(a);
+    public UploadImagePayloadRecord(String path, String userId, List<MultipartFile> files, String uploadFor) {
+        this(path, userId, null, files, uploadFor);
     }
 }

@@ -1,6 +1,6 @@
 package com.bloggios.blog.service;
 
-import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
+import com.bloggios.blog.payload.response.TopicsListResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -13,13 +13,7 @@ import java.util.concurrent.CompletableFuture;
  * Created_at - 21:00
  */
 
-public interface TagService {
+public interface TopicsService {
 
-//    object: [
-//           {
-//              tag: <tag>,
-//                category: <category>
-//           }
-//    ]
-    CompletableFuture<ListResponse> tagsList();
+    CompletableFuture<TopicsListResponse> tagsList();
 }

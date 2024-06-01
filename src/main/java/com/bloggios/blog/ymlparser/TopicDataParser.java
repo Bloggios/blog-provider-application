@@ -1,6 +1,6 @@
 package com.bloggios.blog.ymlparser;
 
-import com.bloggios.blog.payload.TagYmlDataProvider;
+import com.bloggios.blog.payload.TopicsYmlDataProvider;
 import com.bloggios.blog.ymlparser.factory.YmlFileMapParserFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,12 +20,12 @@ import java.util.Map;
  * Created_at - 20:52
  */
 
-@PropertySource(value = "classpath:tags-data.yml", factory = YmlFileMapParserFactory.class)
+@PropertySource(value = "classpath:topics-data.yml", factory = YmlFileMapParserFactory.class)
 @Configuration
-@ConfigurationProperties(prefix = "tag-data")
+@ConfigurationProperties(prefix = "topics-data")
 @Getter
 @Setter
-public class TagDataParser {
+public class TopicDataParser {
 
-    public final Map<String, TagYmlDataProvider> provider = new HashMap<>();
+    public final Map<String, TopicsYmlDataProvider> provider = new HashMap<>();
 }

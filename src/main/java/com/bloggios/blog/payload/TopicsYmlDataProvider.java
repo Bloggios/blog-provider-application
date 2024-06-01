@@ -16,7 +16,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TagYmlDataProvider {
+public class TopicsYmlDataProvider {
 
     private String tag;
     private String category;

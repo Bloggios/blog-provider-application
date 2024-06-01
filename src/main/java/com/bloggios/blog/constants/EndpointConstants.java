@@ -41,4 +41,8 @@ public class EndpointConstants {
         public static final String BASE_PATH = "/tags";
     }
 
+    public static class BlogController {
+        public static final String BASE_PATH = "/blogs";
+    }
+
 }

@@ -8,10 +8,7 @@ import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,14 +38,13 @@ public class BlogController {
     @PostMapping
     public ResponseEntity<ModuleResponse> addBlog(
             @RequestPart(required = false) List<MultipartFile> images,
-            @RequestPart(required = true) String title,
-            @RequestPart(required = true) String detailsHtml,
-            @RequestPart(required = false) String detailsText,
-            @RequestPart(required = false) List<String> topics,
-            @RequestPart(required = true) Object delta,
-            @RequestPart(required = false) boolean isDraft,
-            @RequestPart(required = false) Long milliseconds,
-            @RequestPart(required = false) String chapterId,
+            @RequestParam(required = true) String title,
+            @RequestParam(required = true) String detailsHtml,
+            @RequestParam(required = false) String detailsText,
+            @RequestParam(required = false) List<String> topics,
+            @RequestParam(required = false) Object delta,
+            @RequestParam(required = false) Long milliseconds,
+            @RequestParam(required = false) String chapterId,
             @RequestPart(required = false) MultipartFile coverImage,
             @AuthenticationPrincipal AuthenticatedUser authenticatedUser,
             HttpServletRequest httpServletRequest
@@ -61,7 +57,6 @@ public class BlogController {
                 .detailsText(detailsText)
                 .topics(topics)
                 .delta(delta)
-                .isDraft(isDraft)
                 .milliseconds(milliseconds)
                 .chapterId(chapterId)
                 .coverImage(coverImage)

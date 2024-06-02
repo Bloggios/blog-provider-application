@@ -45,7 +45,7 @@ public class ChapterEntity {
     private List<TopicsEmbeddable> topics = new ArrayList<>();
 
     @OneToMany(
-            mappedBy = "BlogEntity",
+            mappedBy = "chapter",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             orphanRemoval = true

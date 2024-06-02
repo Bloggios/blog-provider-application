@@ -4,14 +4,17 @@ import com.bloggios.blog.constants.EnvironmentConstants;
 import com.bloggios.blog.enums.FeatureStatus;
 import com.bloggios.blog.modal.BlogEntity;
 import com.bloggios.blog.modal.ChapterEntity;
-import com.bloggios.blog.modal.embeddable.TopicsEmbeddable;
 import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.transformer.utils.TopicsTransformUtil;
 import com.bloggios.blog.utils.IpUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Owner - Rohit Parihar and Bloggios
@@ -52,15 +55,13 @@ public class BlogRequestToBlogEntityTransformer {
                 .imageLinks(blogImagesAndHtmlRecord.imageLinks())
                 .chapter(chapterEntity)
                 .featureStatus(getFeatureStatus(blogRequest))
-                .topics(getTopicsEmbeddableList(blogRequest.getTopics()))
+                .topics(TopicsTransformUtil.getTopicsEmbeddableList(blogRequest.getTopics()))
                 .coverImage(coverImageLink)
                 .build();
     }
 
     private FeatureStatus getFeatureStatus(BlogRequest blogRequest) {
-        if (blogRequest.isDraft()) {
-            return FeatureStatus.DRAFT;
-        } else if (Objects.nonNull(blogRequest.getMilliseconds())) {
+        if (Objects.nonNull(blogRequest.getMilliseconds())) {
             return FeatureStatus.SCHEDULED;
         } else {
             return FeatureStatus.VISIBLE;
@@ -73,12 +74,5 @@ public class BlogRequestToBlogEntityTransformer {
             return new Date(currentDate.getTime() + blogRequest.getMilliseconds());
         }
         return null;
-    }
-
-    private List<TopicsEmbeddable> getTopicsEmbeddableList(List<String> topics) {
-        return topics
-                .stream()
-                .map(topic -> TopicsEmbeddable.builder().topic(topic).build())
-                .toList();
     }
 }

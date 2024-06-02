@@ -5,16 +5,11 @@ import com.bloggios.blog.constants.ServiceConstants;
 import com.bloggios.blog.document.embeddable.ImageLinksNested;
 import com.bloggios.blog.document.embeddable.TopicsNested;
 import com.bloggios.blog.enums.FeatureStatus;
-import com.bloggios.blog.modal.ChapterEntity;
-import com.bloggios.blog.modal.embeddable.ImageLinksEntity;
-import com.bloggios.blog.modal.embeddable.TopicsEmbeddable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -107,6 +102,11 @@ public class BlogDocument {
             type = FieldType.Date
     )
     private Date dateUpdated;
+
+    @Field(
+            type = FieldType.Date
+    )
+    private Date scheduledOn;
 
     @Field(
             type = FieldType.Keyword,

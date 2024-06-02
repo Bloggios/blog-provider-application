@@ -1,10 +1,7 @@
 package com.bloggios.blog.dao.implementation.pgsqlimplementation;
 
-import com.bloggios.blog.dao.EsAbstractDao;
 import com.bloggios.blog.dao.PgAbstractDao;
-import com.bloggios.blog.dao.repository.elasticsearch.BlogDocumentRepository;
 import com.bloggios.blog.dao.repository.postgres.BlogEntityRepository;
-import com.bloggios.blog.document.BlogDocument;
 import com.bloggios.blog.modal.BlogEntity;
 import org.springframework.stereotype.Component;
 

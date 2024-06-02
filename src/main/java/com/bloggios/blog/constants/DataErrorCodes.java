@@ -35,4 +35,8 @@ public class DataErrorCodes {
     public static final String COVER_IMAGE_SIZE_LIMIT_EXCEED = "DE__BLOG-2020";
     public static final String COVER_INVALID_IMAGE_NAME = "DE__BLOG-2021";
     public static final String CHAPTER_ID_NOT_FOUND = "DE__BLOG-2022";
+    public static final String CHAPTER_NAME_MANDATORY = "DE__BLOG-2023";
+    public static final String CHAPTER_NAME_LENGTH_EXCEED = "DE__BLOG-2024";
+    public static final String CHAPTER_WORD_LIMIT_EXCEED = "DE__BLOG-2025";
+    public static final String CHAPTER_NAME_ALREADY_EXISTS = "DE__BLOG-2026";
 }

@@ -8,8 +8,6 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.InnerField;
 import org.springframework.data.elasticsearch.annotations.MultiField;
 
-import javax.persistence.Embeddable;
-
 /**
  * Owner - Rohit Parihar and Bloggios
  * Author - rohit

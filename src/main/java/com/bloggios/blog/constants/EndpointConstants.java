@@ -45,4 +45,7 @@ public class EndpointConstants {
         public static final String BASE_PATH = "/blogs";
     }
 
+    public static class ChapterController {
+        public static final String BASE_PATH = "/chapter";
+    }
 }

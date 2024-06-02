@@ -1,15 +1,12 @@
 package com.bloggios.blog.implementation;
 
 import com.bloggios.blog.constants.DataErrorCodes;
-import com.bloggios.blog.constants.EnvironmentConstants;
 import com.bloggios.blog.constants.ResponseMessageConstants;
-import com.bloggios.blog.dao.implementation.esimplementation.BlogDocumentDao;
 import com.bloggios.blog.dao.implementation.pgsqlimplementation.BlogEntityDao;
 import com.bloggios.blog.dao.implementation.pgsqlimplementation.ChapterEntityDao;
 import com.bloggios.blog.document.BlogDocument;
 import com.bloggios.blog.enums.DaoStatus;
 import com.bloggios.blog.exception.payloads.BadRequestException;
-import com.bloggios.blog.file.UploadFile;
 import com.bloggios.blog.modal.BlogEntity;
 import com.bloggios.blog.modal.ChapterEntity;
 import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
@@ -23,8 +20,8 @@ import com.bloggios.blog.transformer.implementation.BlogRequestToBlogEntityTrans
 import com.bloggios.blog.validator.implementation.exhibitor.BlogRequestExhibitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -72,8 +69,11 @@ public class BlogServiceImplementation implements BlogService {
     public CompletableFuture<ModuleResponse> addBlog(BlogRequest blogRequest) {
         long startTime = System.currentTimeMillis();
         blogRequestExhibitor.validate(blogRequest);
-        ChapterEntity chapterEntity = chapterEntityDao.findByChapterId(blogRequest.getChapterId())
-                .orElseThrow(() -> new BadRequestException(DataErrorCodes.CHAPTER_ID_NOT_FOUND));
+        ChapterEntity chapterEntity = null;
+        if (StringUtils.hasText(blogRequest.getChapterId())) {
+            chapterEntity = chapterEntityDao.findByChapterId(blogRequest.getChapterId())
+                    .orElseThrow(() -> new BadRequestException(DataErrorCodes.CHAPTER_ID_NOT_FOUND));
+        }
         BlogImagesAndHtmlRecord imagesAndHtmlRecord = generateImageLinksWithModifiedHtml.process(blogRequest);
         String coverImageLink = coverImageLinkProcessor.process(blogRequest);
         BlogEntity blogEntity = blogRequestToBlogEntityTransformer.transform(blogRequest, imagesAndHtmlRecord, coverImageLink, chapterEntity);

@@ -1,9 +1,9 @@
 package com.bloggios.blog.dao.repository.postgres;
 
-import com.bloggios.blog.document.ChapterDocument;
 import com.bloggios.blog.modal.ChapterEntity;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
 
 /**
  * Owner - Rohit Parihar and Bloggios
@@ -15,4 +15,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface ChapterEntityRepository extends JpaRepository<ChapterEntity, String> {
+
+    Optional<ChapterEntity> findByUserIdAndChapterNameIgnoreCase(String userId, String chapterName);
 }

@@ -13,7 +13,6 @@ public enum FeatureStatus {
 
     VISIBLE,
     ARCHIVED,
-    DRAFT,
     DELETED,
     SCHEDULED
 }

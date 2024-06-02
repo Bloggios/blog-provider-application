@@ -38,4 +38,5 @@ import lombok.experimental.UtilityClass;
 public class ResponseMessageConstants {
 
     public static final String BLOG_CREATED = "Blog Created Successfully";
+    public static final String CHAPTER_CREATED = "Chapter Created";
 }

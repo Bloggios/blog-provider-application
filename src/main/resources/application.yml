@@ -1,4 +1,11 @@
+server:
+  port: 7004
+  servlet:
+    context-path: /blog-provider
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
   application:
     name: blog-provider-application
   kafka:

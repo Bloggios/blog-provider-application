@@ -4,7 +4,6 @@ import com.bloggios.blog.payload.request.BlogRequest;
 import com.bloggios.blog.utils.AsyncUtils;
 import com.bloggios.blog.validator.Exhibitor;
 import com.bloggios.blog.validator.implementation.businessvalidator.*;
-import com.bloggios.blog.ymlparser.TopicDataParser;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
@@ -51,7 +50,7 @@ public class BlogRequestExhibitor implements Exhibitor<BlogRequest> {
     public void validate(BlogRequest blogRequest) {
         CompletableFuture<Void> blogDetailsFuture = CompletableFuture.runAsync(() -> blogDetailsTextValidator.validate(blogRequest));
         CompletableFuture<Void> blogImagesFuture = CompletableFuture.runAsync(() -> blogImagesValidator.validate(blogRequest));
-        CompletableFuture<Void> coverImageFuture = CompletableFuture.runAsync(() -> coverImageValidator.validate(blogRequest));
+        CompletableFuture<Void> coverImageFuture = CompletableFuture.runAsync(() -> coverImageValidator.validate(blogRequest.getCoverImage()));
         CompletableFuture<Void> htmlDetailsFuture = CompletableFuture.runAsync(() -> htmlDetailsValidator.validate(blogRequest));
         CompletableFuture<Void> schedulerFuture = CompletableFuture.runAsync(() -> schedulerTimeValidator.validate(blogRequest));
         CompletableFuture<Void> titleFuture = CompletableFuture.runAsync(() -> titleValidator.validate(blogRequest.getTitle()));

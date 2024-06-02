@@ -5,7 +5,6 @@ import com.bloggios.blog.constants.DataErrorCodes;
 import com.bloggios.blog.constants.ResponseErrorMessageConstants;
 import com.bloggios.blog.exception.payloads.BadRequestException;
 import com.bloggios.blog.payload.request.BlogRequest;
-import com.bloggios.blog.utils.WordsCounter;
 import com.bloggios.blog.validator.BusinessValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;

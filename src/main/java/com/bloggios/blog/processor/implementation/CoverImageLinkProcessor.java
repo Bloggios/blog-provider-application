@@ -3,8 +3,8 @@ package com.bloggios.blog.processor.implementation;
 import com.bloggios.blog.constants.EnvironmentConstants;
 import com.bloggios.blog.constants.ServiceConstants;
 import com.bloggios.blog.file.UploadFile;
-import com.bloggios.blog.modal.embeddable.ImageLinksEntity;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.request.ChapterRequest;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -36,6 +36,17 @@ public class CoverImageLinkProcessor {
                 environment.getProperty(EnvironmentConstants.COVER_IMAGES_PATH),
                 blogRequest.getCoverImage(),
                 blogRequest.getAuthenticatedUser().getUserId()
+        );
+        String type = imageName.substring(imageName.lastIndexOf("."));
+        return generateLink(imageName);
+    }
+
+    public String process(ChapterRequest chapterRequest) {
+        if (chapterRequest.getCoverImage() == null) return null;
+        String imageName = uploadFile.uploadImage(
+                environment.getProperty(EnvironmentConstants.COVER_IMAGES_PATH),
+                chapterRequest.getCoverImage(),
+                chapterRequest.getAuthenticatedUser().getUserId()
         );
         String type = imageName.substring(imageName.lastIndexOf("."));
         return generateLink(imageName);

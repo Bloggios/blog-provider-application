@@ -83,6 +83,7 @@ public class BlogEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private ChapterEntity chapter;
 
+    @Enumerated(EnumType.STRING)
     private FeatureStatus featureStatus;
 
     private String coverImage;

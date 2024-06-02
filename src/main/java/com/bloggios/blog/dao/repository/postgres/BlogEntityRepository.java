@@ -1,8 +1,6 @@
 package com.bloggios.blog.dao.repository.postgres;
 
-import com.bloggios.blog.document.BlogDocument;
 import com.bloggios.blog.modal.BlogEntity;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

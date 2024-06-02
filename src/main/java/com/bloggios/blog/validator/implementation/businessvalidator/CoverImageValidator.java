@@ -2,7 +2,6 @@ package com.bloggios.blog.validator.implementation.businessvalidator;
 
 import com.bloggios.blog.constants.DataErrorCodes;
 import com.bloggios.blog.exception.payloads.BadRequestException;
-import com.bloggios.blog.payload.request.BlogRequest;
 import com.bloggios.blog.validator.BusinessValidator;
 import org.springframework.stereotype.Component;
 import org.springframework.util.unit.DataSize;
@@ -20,12 +19,12 @@ import java.util.Objects;
  */
 
 @Component
-public class CoverImageValidator implements BusinessValidator<BlogRequest> {
+public class CoverImageValidator implements BusinessValidator<MultipartFile> {
 
     @Override
-    public void validate(BlogRequest blogRequest) {
-        if (Objects.nonNull(blogRequest.getCoverImage())) {
-            this.validateImage(blogRequest.getCoverImage());
+    public void validate(MultipartFile multipartFile) {
+        if (Objects.nonNull(multipartFile)) {
+            this.validateImage(multipartFile);
         }
     }
 

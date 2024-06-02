@@ -26,4 +26,8 @@ public class ChapterEntityDao extends PgAbstractDao<ChapterEntity, ChapterEntity
     public Optional<ChapterEntity> findByChapterId(String chapterId) {
         return repository.findById(chapterId);
     }
+
+    public Optional<ChapterEntity> findByUserIdAndChapterName(String userId, String chapterName) {
+        return repository.findByUserIdAndChapterNameIgnoreCase(userId, chapterName);
+    }
 }

@@ -3,14 +3,11 @@ package com.bloggios.blog.document;
 import com.bloggios.blog.constants.EnvironmentConstants;
 import com.bloggios.blog.constants.ServiceConstants;
 import com.bloggios.blog.document.embeddable.TopicsNested;
-import com.bloggios.blog.modal.BlogEntity;
-import com.bloggios.blog.modal.embeddable.TopicsEmbeddable;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

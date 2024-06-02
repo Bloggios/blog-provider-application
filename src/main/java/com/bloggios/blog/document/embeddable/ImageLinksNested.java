@@ -29,7 +29,6 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 /**

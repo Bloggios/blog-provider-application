@@ -23,7 +23,7 @@
 
 package com.bloggios.blog.utils;
 
-import com.bloggios.blog.constants.rrorCodes;
+import com.bloggios.blog.constants.DataErrorCodes;
 import com.bloggios.blog.exception.payloads.BadRequestException;
 import lombok.experimental.UtilityClass;
 

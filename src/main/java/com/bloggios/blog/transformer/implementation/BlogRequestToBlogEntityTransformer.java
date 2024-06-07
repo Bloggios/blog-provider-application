@@ -10,6 +10,7 @@ import com.bloggios.blog.transformer.utils.TopicsTransformUtil;
 import com.bloggios.blog.utils.IpUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -58,6 +59,8 @@ public class BlogRequestToBlogEntityTransformer {
                 .featureStatus(getFeatureStatus(blogRequest))
                 .topics(TopicsTransformUtil.getTopicsEmbeddableList(blogRequest.getTopics()))
                 .coverImage(coverImageLink)
+                .seoTitle(blogRequest.getSeoTitle())
+                .canonicalUrl(blogRequest.getCanonicalUrl())
                 .build();
     }
 
@@ -68,6 +71,7 @@ public class BlogRequestToBlogEntityTransformer {
             return FeatureStatus.VISIBLE;
         }
     }
+
     private Date getScheduledOn(BlogRequest blogRequest) {
         FeatureStatus featureStatus = getFeatureStatus(blogRequest);
         if (featureStatus.equals(FeatureStatus.SCHEDULED)) {

@@ -52,4 +52,6 @@ public class EnvironmentConstants {
     public static final String COVER_IMAGES_PATH = "blog-files.cover-images";
     public static final String LIKE_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.like')}";
     public static final String COMMENT_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.comment')}";
+    public static final String BLOG_INDEX = "elasticsearch.indices.blog";
+    public static final String BASE_PATH = "#{@environment.getProperty('application.base-path')}";
 }

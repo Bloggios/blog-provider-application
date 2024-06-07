@@ -87,4 +87,8 @@ public class BlogEntity {
     private FeatureStatus featureStatus;
 
     private String coverImage;
+    private String seoTitle;
+
+    @Column(length = 1000)
+    private String canonicalUrl;
 }

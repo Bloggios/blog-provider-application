@@ -1,29 +1,49 @@
 package com.bloggios.blog.implementation;
 
+import com.bloggios.blog.constants.BeanConstants;
 import com.bloggios.blog.constants.DataErrorCodes;
 import com.bloggios.blog.constants.ResponseMessageConstants;
+import com.bloggios.blog.constants.ServiceConstants;
+import com.bloggios.blog.dao.implementation.esimplementation.BlogDocumentDao;
 import com.bloggios.blog.dao.implementation.pgsqlimplementation.BlogEntityDao;
 import com.bloggios.blog.dao.implementation.pgsqlimplementation.ChapterEntityDao;
 import com.bloggios.blog.document.BlogDocument;
 import com.bloggios.blog.enums.DaoStatus;
+import com.bloggios.blog.enums.FeatureStatus;
 import com.bloggios.blog.exception.payloads.BadRequestException;
 import com.bloggios.blog.modal.BlogEntity;
 import com.bloggios.blog.modal.ChapterEntity;
 import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
+import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.response.BlogResponseForList;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.persistence.BlogEntityToDocumentPersistence;
 import com.bloggios.blog.processor.implementation.CoverImageLinkProcessor;
 import com.bloggios.blog.processor.implementation.GenerateImageLinksWithModifiedHtml;
 import com.bloggios.blog.processor.implementation.HtmlDataManipulation;
 import com.bloggios.blog.service.BlogService;
+import com.bloggios.blog.transformer.implementation.BlogDocumentToBlogResponseForListTransformer;
+import com.bloggios.blog.transformer.implementation.BlogListToListRequestTransformer;
 import com.bloggios.blog.transformer.implementation.BlogRequestToBlogEntityTransformer;
+import com.bloggios.blog.utils.ListRequestUtils;
+import com.bloggios.blog.utils.ValueCheckerUtil;
+import com.bloggios.blog.validator.implementation.businessvalidator.TopicsValidator;
 import com.bloggios.blog.validator.implementation.exhibitor.BlogRequestExhibitor;
+import com.bloggios.elasticsearch.configuration.payload.ListRequest;
+import com.bloggios.elasticsearch.configuration.payload.lspayload.Filter;
+import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -48,6 +68,10 @@ public class BlogServiceImplementation implements BlogService {
     private final BlogEntityDao blogEntityDao;
     private final BlogEntityToDocumentPersistence blogEntityToDocumentPersistence;
     private final HtmlDataManipulation htmlDataManipulation;
+    private final BlogListToListRequestTransformer blogListToListRequestTransformer;
+    private final BlogDocumentDao blogDocumentDao;
+    private final TopicsValidator topicsValidator;
+    private final BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer;
 
     public BlogServiceImplementation(
             BlogRequestExhibitor blogRequestExhibitor,
@@ -57,7 +81,7 @@ public class BlogServiceImplementation implements BlogService {
             BlogRequestToBlogEntityTransformer blogRequestToBlogEntityTransformer,
             BlogEntityDao blogEntityDao,
             BlogEntityToDocumentPersistence blogEntityToDocumentPersistence,
-            HtmlDataManipulation htmlDataManipulation) {
+            HtmlDataManipulation htmlDataManipulation, BlogListToListRequestTransformer blogListToListRequestTransformer, BlogDocumentDao blogDocumentDao, TopicsValidator topicsValidator, BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer) {
         this.blogRequestExhibitor = blogRequestExhibitor;
         this.generateImageLinksWithModifiedHtml = generateImageLinksWithModifiedHtml;
         this.coverImageLinkProcessor = coverImageLinkProcessor;
@@ -66,9 +90,14 @@ public class BlogServiceImplementation implements BlogService {
         this.blogEntityDao = blogEntityDao;
         this.blogEntityToDocumentPersistence = blogEntityToDocumentPersistence;
         this.htmlDataManipulation = htmlDataManipulation;
+        this.blogListToListRequestTransformer = blogListToListRequestTransformer;
+        this.blogDocumentDao = blogDocumentDao;
+        this.topicsValidator = topicsValidator;
+        this.blogDocumentToBlogResponseForListTransformer = blogDocumentToBlogResponseForListTransformer;
     }
 
     @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
     public CompletableFuture<ModuleResponse> addBlog(BlogRequest blogRequest) {
         long startTime = System.currentTimeMillis();
         blogRequestExhibitor.validate(blogRequest);
@@ -92,5 +121,82 @@ public class BlogServiceImplementation implements BlogService {
                         .id(blogDocument.getBlogId())
                         .build()
         );
+    }
+
+    @Override
+    public CompletableFuture<ListResponse> blogList(BlogListRequest blogListRequest) {
+        if (Objects.isNull(blogListRequest)) throw new BadRequestException(DataErrorCodes.BLOG_LIST_REQUEST_NULL);
+        ListRequest transform = blogListToListRequestTransformer.transform(blogListRequest);
+        SearchHits<BlogDocument> searchHits = blogDocumentDao.blogDocumentSearchHits(transform);
+        List<BlogDocument> list = new ArrayList<>();
+        if (Objects.nonNull(searchHits)) {
+            list = searchHits
+                    .stream()
+                    .map(SearchHit::getContent)
+                    .toList();
+        }
+        return CompletableFuture.completedFuture(
+                ListResponse
+                        .builder()
+                        .page(blogListRequest.getPage())
+                        .size(blogListRequest.getSize())
+                        .pageSize(list.size())
+                        .totalRecordsCount(searchHits!=null ? searchHits.getTotalHits() : 0)
+                        .object(list)
+                        .build());
+    }
+
+    @Override
+    public CompletableFuture<ListResponse> unauthBlogList(Integer page, String userId, String topic) {
+        List<Filter> filters = new ArrayList<>();
+        if (StringUtils.hasText(userId)) {
+            ValueCheckerUtil.isValidUUID(userId);
+            Filter userIdFilter = Filter
+                    .builder()
+                    .filterKey(ServiceConstants.USER_ID_KEY)
+                    .selections(List.of(userId))
+                    .build();
+            filters.add(userIdFilter);
+        }
+        if (StringUtils.hasText(topic)) {
+            topicsValidator.validate(List.of(topic));
+            Filter topicValidator = Filter
+                    .builder()
+                    .filterKey(ServiceConstants.TOPIC_KEY)
+                    .selections(List.of(topic))
+                    .build();
+            filters.add(topicValidator);
+        }
+        Filter featureStatusFilter = Filter
+                .builder()
+                .filterKey(ServiceConstants.FEATURE_STATUS_KEY)
+                .selections(List.of(FeatureStatus.VISIBLE.name()))
+                .build();
+        filters.add(featureStatusFilter);
+        BlogListRequest blogListRequest = BlogListRequest
+                .builder()
+                .page(page)
+                .size(10)
+                .filters(filters)
+                .build();
+        ListRequest listRequest = blogListToListRequestTransformer.transform(blogListRequest);
+        SearchHits<BlogDocument> searchHits = blogDocumentDao.blogDocumentSearchHits(listRequest);
+        List<BlogResponseForList> list = new ArrayList<>();
+        if (Objects.nonNull(searchHits)) {
+            list = searchHits
+                    .stream().parallel()
+                    .map(SearchHit::getContent)
+                    .map(blogDocumentToBlogResponseForListTransformer::transform)
+                    .toList();
+        }
+        return CompletableFuture.completedFuture(
+                ListResponse
+                        .builder()
+                        .page(blogListRequest.getPage())
+                        .size(blogListRequest.getSize())
+                        .pageSize(list.size())
+                        .totalRecordsCount(searchHits!=null ? searchHits.getTotalHits() : 0)
+                        .object(list)
+                        .build());
     }
 }

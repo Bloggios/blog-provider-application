@@ -141,4 +141,16 @@ public class BlogDocument {
             normalizer = ServiceConstants.DEFAULT_NORMALIZER
     )
     private String coverImage;
+
+    @Field(
+            type = FieldType.Keyword,
+            normalizer = ServiceConstants.DEFAULT_NORMALIZER
+    )
+    private String seoTitle;
+
+    @Field(
+            type = FieldType.Keyword,
+            normalizer = ServiceConstants.DEFAULT_NORMALIZER
+    )
+    private String canonicalUrl;
 }

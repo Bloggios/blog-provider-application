@@ -36,4 +36,6 @@ public class BlogRequest {
     private MultipartFile coverImage;
     private AuthenticatedUser authenticatedUser;
     private HttpServletRequest httpServletRequest;
+    private String seoTitle;
+    private String canonicalUrl;
 }

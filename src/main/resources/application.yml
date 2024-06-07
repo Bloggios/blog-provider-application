@@ -40,6 +40,7 @@ spring:
 application:
   version: @version@
   profile: ${ACTIVE_PROFILE}
+  base-path: ${BASE_PATH}
   environment:
     devsandbox-assets: https://assets.bloggios.cloud/blog-provider
     production-assets: https://assets.bloggios.com/blog-provider
@@ -73,6 +74,7 @@ security-config:
     paths:
       - /actuator/**
       - /tags/**
+      - /unauth/**
   cookie:
     cookie-name: ${ACTIVE_PROFILE:local}.bg-refresh-mgmt
     paths:

@@ -1,0 +1,93 @@
+blog:
+  provider:
+    blogId:
+      dataType: STRING
+      filterField: blogId
+      sortField: blogId
+      searchField: blogId
+      searchAllowed: true
+      partialSearch: false
+    title:
+      dataType: STRING
+      filterField: title.verbatim
+      sortField: title.verbatim
+      searchField: title
+      searchAllowed: true
+      partialSearch: true
+    detailsText:
+      dataType: STRING
+      filterField: detailsText
+      sortField: detailsText
+      searchField: detailsText
+      searchAllowed: false
+      partialSearch: false
+    userId:
+      dataType: STRING
+      filterField: userId
+      sortField: userId
+      searchField: userId
+      searchAllowed: true
+      partialSearch: false
+    dateCreated:
+      dataType: DATE_TIME
+      filterField: dateCreated
+      sortField: dateCreated
+      searchField: dateCreated
+      searchAllowed: false
+      partialSearch: false
+    dateUpdated:
+      dataType: DATE_TIME
+      filterField: dateUpdated
+      sortField: dateUpdated
+      searchField: dateUpdated
+      searchAllowed: false
+      partialSearch: false
+    scheduledOn:
+      dataType: DATE_TIME
+      filterField: scheduledOn
+      sortField: scheduledOn
+      searchField: scheduledOn
+      searchAllowed: false
+      partialSearch: false
+    remoteAddress:
+      dataType: STRING
+      filterField: remoteAddress
+      sortField: remoteAddress
+      searchField: remoteAddress
+      searchAllowed: false
+      partialSearch: false
+    chapterId:
+      dataType: STRING
+      filterField: chapterId
+      sortField: chapterId
+      searchField: chapterId
+      searchAllowed: true
+      partialSearch: false
+    featureStatus:
+      dataType: STRING
+      filterField: featureStatus
+      sortField: featureStatus
+      searchField: featureStatus
+      searchAllowed: true
+      partialSearch: false
+    coverImage:
+      dataType: STRING
+      filterField: coverImage
+      sortField: coverImage
+      searchField: coverImage
+      searchAllowed: false
+      partialSearch: false
+    image:
+      dataType: STRING
+      filterField: imageLinks.link
+      sortField: imageLinks.link
+      searchField: imageLinks.link
+      searchAllowed: false
+      partialSearch: false
+    topic:
+      dataType: STRING
+      filterField: topics.topic.verbatim
+      sortField: topics.topic.verbatim
+      searchField: topics.topic
+      searchAllowed: true
+      partialSearch: true

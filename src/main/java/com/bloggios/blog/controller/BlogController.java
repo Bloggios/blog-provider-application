@@ -2,10 +2,12 @@ package com.bloggios.blog.controller;
 
 import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
 import com.bloggios.blog.constants.EndpointConstants;
+import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
+import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +49,9 @@ public class BlogController {
             @RequestParam(required = false) String chapterId,
             @RequestPart(required = false) MultipartFile coverImage,
             @AuthenticationPrincipal AuthenticatedUser authenticatedUser,
-            HttpServletRequest httpServletRequest
+            HttpServletRequest httpServletRequest,
+            @RequestParam(required = false) String seoTitle,
+            @RequestParam(required = false) String canonicalUrl
             ) {
         BlogRequest build = BlogRequest
                 .builder()
@@ -62,7 +66,14 @@ public class BlogController {
                 .coverImage(coverImage)
                 .authenticatedUser(authenticatedUser)
                 .httpServletRequest(httpServletRequest)
+                .seoTitle(seoTitle)
+                .canonicalUrl(canonicalUrl)
                 .build();
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.addBlog(build)));
+    }
+
+    @PostMapping(EndpointConstants.BlogController.BLOG_LIST)
+    public ResponseEntity<ListResponse> getBlogList(@RequestBody BlogListRequest blogListRequest) {
+        return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.blogList(blogListRequest)));
     }
 }

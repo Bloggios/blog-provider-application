@@ -1,5 +1,5 @@
 /*
- * Copyright © 2023-2024 Bloggios
+ * Copyright © 2023-2024 Rohit Parihar and Bloggios
  * All rights reserved.
  * This software is the property of Rohit Parihar and is protected by copyright law.
  * The software, including its source code, documentation, and associated files, may not be used, copied, modified, distributed, or sublicensed without the express written consent of Rohit Parihar.
@@ -21,41 +21,34 @@
  * limitations under the License.
  */
 
-package com.bloggios.blog.constants;
+package com.bloggios.blog.ymlparser.listparser;
 
-import lombok.experimental.UtilityClass;
+import com.bloggios.blog.ymlparser.factory.YmlFileMapParserFactory;
+import com.bloggios.elasticsearch.configuration.payload.YamlListDataProvider;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Owner - Rohit Parihar
  * Author - rohit
- * Project - auth-provider-application
- * Package - com.bloggios.auth.provider.constants
- * Created_on - 11 January-2024
- * Created_at - 20 : 34
+ * Project - user-provider-application
+ * Package - com.bloggios.user.ymlparser.listparser
+ * Created_on - 27 May-2024
+ * Created_at - 13 : 08
  */
 
-@UtilityClass
-public class EndpointConstants {
+@PropertySource(value = "classpath:listdata/blog.yml", factory = YmlFileMapParserFactory.class)
+@ConfigurationProperties(prefix = "blog")
+@Configuration
+@Getter
+@Setter
+public class BlogYmlFileParser {
 
-    public static class TagsController {
-        public static final String BASE_PATH = "/tags";
-    }
-
-    public static class BlogController {
-        public static final String BASE_PATH = "/blogs";
-        public static final String BLOG_LIST = "/list";
-    }
-
-    public static class ChapterController {
-        public static final String BASE_PATH = "/chapter";
-    }
-
-    public static class OpenController {
-        public static final String BASE_PATH = "/unauth";
-        public static final String BLOGS_LIST = "/list";
-    }
-
-    public static class FeignClient {
-        public static final String PROFILE_INTERNAL_RESPONSE = "/user-provider/unauth/profile-internal-response/{userId}";
-    }
+    public Map<String, YamlListDataProvider> provider = new HashMap<>();
 }

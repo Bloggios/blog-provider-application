@@ -26,6 +26,7 @@ package com.bloggios.blog.exception;
 import com.bloggios.blog.constants.InternalExceptionCodes;
 import com.bloggios.blog.constants.ServiceConstants;
 import com.bloggios.blog.exception.payloads.BadRequestException;
+import com.bloggios.blog.exception.payloads.InternalException;
 import com.bloggios.blog.payload.response.ExceptionResponse;
 import com.bloggios.blog.properties.FetchErrorProperties;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -93,6 +94,27 @@ public class GlobalExceptionHandler {
                 exceptionResponse.getCode(),
                 exceptionResponse.getType());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InternalException.class)
+    public ResponseEntity<ExceptionResponse> handleInternalException(InternalException internalException) {
+        ExceptionResponse exceptionResponse = fetchErrorProperties.exceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, internalException.getCode());
+        if (Objects.nonNull(internalException.getMessage())) {
+            exceptionResponse = fetchErrorProperties.generateExceptionResponse(HttpStatus.BAD_REQUEST, internalException.getMessage(), internalException.getCode());
+        }
+        logger.error("""
+                Internal Exception Occurred : {}
+                Message : {}
+                Field : {}
+                Code : {}
+                Type : {}
+                """,
+                MDC.get(ServiceConstants.BREADCRUMB_ID),
+                exceptionResponse.getMessage(),
+                exceptionResponse.getField(),
+                exceptionResponse.getCode(),
+                exceptionResponse.getType());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(Exception.class)

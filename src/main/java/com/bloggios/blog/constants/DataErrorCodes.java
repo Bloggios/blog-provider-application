@@ -39,4 +39,8 @@ public class DataErrorCodes {
     public static final String CHAPTER_NAME_LENGTH_EXCEED = "DE__BLOG-2024";
     public static final String CHAPTER_WORD_LIMIT_EXCEED = "DE__BLOG-2025";
     public static final String CHAPTER_NAME_ALREADY_EXISTS = "DE__BLOG-2026";
+    public static final String FILTER_KEY_NOT_VALID = "DE__BLOG-2027";
+    public static final String SORT_KEY_NOT_VALID = "DE__BLOG-2028";
+    public static final String BLOG_LIST_REQUEST_NULL = "DE__BLOG-2029";
+    public static final String PROFILE_DATA_NOT_FOUND_FEIGN = "DE__BLOG-2030";
 }

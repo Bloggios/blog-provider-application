@@ -66,7 +66,7 @@ public class FetchErrorProperties {
         if (code.startsWith("DE")) {
             type = "DATA ERROR";
         }
-        return new ExceptionResponse(status, message, field, type, code);
+        return new ExceptionResponse(message, code, field, type, status.name());
     }
 
     public ExceptionResponse generateExceptionResponse(HttpStatus status, String message, String code) {

@@ -1,7 +1,9 @@
 package com.bloggios.blog.service;
 
+import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
 import com.bloggios.blog.payload.response.ModuleResponse;
+import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,4 +19,8 @@ import java.util.concurrent.CompletableFuture;
 public interface BlogService {
 
     CompletableFuture<ModuleResponse> addBlog(BlogRequest blogRequest);
+    CompletableFuture<ListResponse> blogList(BlogListRequest blogListRequest);
+    CompletableFuture<ListResponse> unauthBlogList(
+            Integer page, String userId, String topic
+    );
 }

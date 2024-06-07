@@ -52,10 +52,15 @@ public class EndpointConstants {
 
     public static class OpenController {
         public static final String BASE_PATH = "/unauth";
-        public static final String BLOGS_LIST = "/list";
+
+        public static class BlogData {
+            public static final String BASE_PATH = "/blog";
+            public static final String BLOGS_LIST = BASE_PATH + "/list";
+        }
     }
 
     public static class FeignClient {
         public static final String PROFILE_INTERNAL_RESPONSE = "/user-provider/unauth/profile-internal-response/{userId}";
     }
+
 }

@@ -5,7 +5,6 @@ import com.bloggios.blog.payload.response.ProfileInternalResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**

@@ -1,6 +1,7 @@
 package com.bloggios.blog.controller;
 
 import com.bloggios.blog.constants.EndpointConstants;
+import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
 import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
@@ -27,7 +28,7 @@ public class OpenController {
 
     private final BlogService blogService;
 
-    @GetMapping(EndpointConstants.OpenController.BLOGS_LIST)
+    @GetMapping(EndpointConstants.OpenController.BlogData.BLOGS_LIST)
     public ResponseEntity<ListResponse> blogsList(
             @RequestParam Integer page,
             @RequestParam(required = false) String userId,
@@ -36,5 +37,12 @@ public class OpenController {
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.unauthBlogList(
                 page, userId, topic
         )));
+    }
+
+    @GetMapping(EndpointConstants.OpenController.BlogData.BASE_PATH)
+    public ResponseEntity<BlogResponse> getUnauthBlog(
+            @RequestParam String blogId
+    ) {
+        return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.getUnauthBlog(blogId)));
     }
 }

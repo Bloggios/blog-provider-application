@@ -29,8 +29,6 @@ import lombok.*;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import javax.persistence.Embeddable;
-
 /**
  * Owner - Rohit Parihar
  * Author - rohit

@@ -5,6 +5,8 @@ import com.bloggios.blog.dao.repository.elasticsearch.ChapterDocumentRepository;
 import com.bloggios.blog.document.ChapterDocument;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * Owner - Rohit Parihar and Bloggios
  * Author - rohit
@@ -19,5 +21,9 @@ public class ChapterDocumentDao extends EsAbstractDao<ChapterDocument, ChapterDo
 
     protected ChapterDocumentDao(ChapterDocumentRepository repository) {
         super(repository);
+    }
+
+    public Optional<ChapterDocument> findById(String chapterId) {
+        return repository.findById(chapterId);
     }
 }

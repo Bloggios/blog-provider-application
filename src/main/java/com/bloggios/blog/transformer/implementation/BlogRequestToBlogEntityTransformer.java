@@ -10,7 +10,6 @@ import com.bloggios.blog.transformer.utils.TopicsTransformUtil;
 import com.bloggios.blog.utils.IpUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import java.util.Calendar;
 import java.util.Date;

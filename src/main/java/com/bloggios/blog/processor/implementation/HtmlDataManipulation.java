@@ -1,7 +1,5 @@
 package com.bloggios.blog.processor.implementation;
 
-import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
-import com.bloggios.blog.processor.Process;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

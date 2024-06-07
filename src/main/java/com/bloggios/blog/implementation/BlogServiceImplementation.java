@@ -16,6 +16,7 @@ import com.bloggios.blog.modal.ChapterEntity;
 import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
 import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.payload.response.BlogResponseForList;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.persistence.BlogEntityToDocumentPersistence;
@@ -24,9 +25,9 @@ import com.bloggios.blog.processor.implementation.GenerateImageLinksWithModified
 import com.bloggios.blog.processor.implementation.HtmlDataManipulation;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.transformer.implementation.BlogDocumentToBlogResponseForListTransformer;
+import com.bloggios.blog.transformer.implementation.BlogDocumentToBlogResponseTransformer;
 import com.bloggios.blog.transformer.implementation.BlogListToListRequestTransformer;
 import com.bloggios.blog.transformer.implementation.BlogRequestToBlogEntityTransformer;
-import com.bloggios.blog.utils.ListRequestUtils;
 import com.bloggios.blog.utils.ValueCheckerUtil;
 import com.bloggios.blog.validator.implementation.businessvalidator.TopicsValidator;
 import com.bloggios.blog.validator.implementation.exhibitor.BlogRequestExhibitor;
@@ -72,6 +73,7 @@ public class BlogServiceImplementation implements BlogService {
     private final BlogDocumentDao blogDocumentDao;
     private final TopicsValidator topicsValidator;
     private final BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer;
+    private final BlogDocumentToBlogResponseTransformer blogDocumentToBlogResponseTransformer;
 
     public BlogServiceImplementation(
             BlogRequestExhibitor blogRequestExhibitor,
@@ -81,7 +83,7 @@ public class BlogServiceImplementation implements BlogService {
             BlogRequestToBlogEntityTransformer blogRequestToBlogEntityTransformer,
             BlogEntityDao blogEntityDao,
             BlogEntityToDocumentPersistence blogEntityToDocumentPersistence,
-            HtmlDataManipulation htmlDataManipulation, BlogListToListRequestTransformer blogListToListRequestTransformer, BlogDocumentDao blogDocumentDao, TopicsValidator topicsValidator, BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer) {
+            HtmlDataManipulation htmlDataManipulation, BlogListToListRequestTransformer blogListToListRequestTransformer, BlogDocumentDao blogDocumentDao, TopicsValidator topicsValidator, BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer, BlogDocumentToBlogResponseTransformer blogDocumentToBlogResponseTransformer) {
         this.blogRequestExhibitor = blogRequestExhibitor;
         this.generateImageLinksWithModifiedHtml = generateImageLinksWithModifiedHtml;
         this.coverImageLinkProcessor = coverImageLinkProcessor;
@@ -94,6 +96,7 @@ public class BlogServiceImplementation implements BlogService {
         this.blogDocumentDao = blogDocumentDao;
         this.topicsValidator = topicsValidator;
         this.blogDocumentToBlogResponseForListTransformer = blogDocumentToBlogResponseForListTransformer;
+        this.blogDocumentToBlogResponseTransformer = blogDocumentToBlogResponseTransformer;
     }
 
     @Override
@@ -125,6 +128,7 @@ public class BlogServiceImplementation implements BlogService {
 
     @Override
     public CompletableFuture<ListResponse> blogList(BlogListRequest blogListRequest) {
+        long startTime = System.currentTimeMillis();
         if (Objects.isNull(blogListRequest)) throw new BadRequestException(DataErrorCodes.BLOG_LIST_REQUEST_NULL);
         ListRequest transform = blogListToListRequestTransformer.transform(blogListRequest);
         SearchHits<BlogDocument> searchHits = blogDocumentDao.blogDocumentSearchHits(transform);
@@ -135,6 +139,7 @@ public class BlogServiceImplementation implements BlogService {
                     .map(SearchHit::getContent)
                     .toList();
         }
+        logger.info("Execution time (Blog List) : {}ms", System.currentTimeMillis() - startTime);
         return CompletableFuture.completedFuture(
                 ListResponse
                         .builder()
@@ -148,6 +153,7 @@ public class BlogServiceImplementation implements BlogService {
 
     @Override
     public CompletableFuture<ListResponse> unauthBlogList(Integer page, String userId, String topic) {
+        long startTime = System.currentTimeMillis();
         List<Filter> filters = new ArrayList<>();
         if (StringUtils.hasText(userId)) {
             ValueCheckerUtil.isValidUUID(userId);
@@ -189,6 +195,7 @@ public class BlogServiceImplementation implements BlogService {
                     .map(blogDocumentToBlogResponseForListTransformer::transform)
                     .toList();
         }
+        logger.info("Execution time (Unauth Blog List) : {}ms", System.currentTimeMillis() - startTime);
         return CompletableFuture.completedFuture(
                 ListResponse
                         .builder()
@@ -198,5 +205,18 @@ public class BlogServiceImplementation implements BlogService {
                         .totalRecordsCount(searchHits!=null ? searchHits.getTotalHits() : 0)
                         .object(list)
                         .build());
+    }
+
+    @Override
+    public CompletableFuture<BlogResponse> getUnauthBlog(String blogId) {
+        long startTime = System.currentTimeMillis();
+        ValueCheckerUtil.isValidUUID(blogId);
+        BlogDocument blogDocument = blogDocumentDao.findById(blogId)
+                .orElseThrow(() -> new BadRequestException(DataErrorCodes.BLOG_NOT_FOUND));
+        if (blogDocument.getFeatureStatus().equals(FeatureStatus.SCHEDULED))
+            throw new BadRequestException(DataErrorCodes.BLOG_NOT_FOUND);
+        BlogResponse transform = blogDocumentToBlogResponseTransformer.transform(blogDocument);
+        logger.info("Execution time (Get Unauth Blog) : {}ms", System.currentTimeMillis() - startTime);
+        return CompletableFuture.completedFuture(transform);
     }
 }

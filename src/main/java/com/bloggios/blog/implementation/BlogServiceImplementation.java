@@ -15,6 +15,7 @@ import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.persistence.BlogEntityToDocumentPersistence;
 import com.bloggios.blog.processor.implementation.CoverImageLinkProcessor;
 import com.bloggios.blog.processor.implementation.GenerateImageLinksWithModifiedHtml;
+import com.bloggios.blog.processor.implementation.HtmlDataManipulation;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.transformer.implementation.BlogRequestToBlogEntityTransformer;
 import com.bloggios.blog.validator.implementation.exhibitor.BlogRequestExhibitor;
@@ -46,6 +47,7 @@ public class BlogServiceImplementation implements BlogService {
     private final BlogRequestToBlogEntityTransformer blogRequestToBlogEntityTransformer;
     private final BlogEntityDao blogEntityDao;
     private final BlogEntityToDocumentPersistence blogEntityToDocumentPersistence;
+    private final HtmlDataManipulation htmlDataManipulation;
 
     public BlogServiceImplementation(
             BlogRequestExhibitor blogRequestExhibitor,
@@ -54,8 +56,8 @@ public class BlogServiceImplementation implements BlogService {
             ChapterEntityDao chapterEntityDao,
             BlogRequestToBlogEntityTransformer blogRequestToBlogEntityTransformer,
             BlogEntityDao blogEntityDao,
-            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence
-    ) {
+            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence,
+            HtmlDataManipulation htmlDataManipulation) {
         this.blogRequestExhibitor = blogRequestExhibitor;
         this.generateImageLinksWithModifiedHtml = generateImageLinksWithModifiedHtml;
         this.coverImageLinkProcessor = coverImageLinkProcessor;
@@ -63,6 +65,7 @@ public class BlogServiceImplementation implements BlogService {
         this.blogRequestToBlogEntityTransformer = blogRequestToBlogEntityTransformer;
         this.blogEntityDao = blogEntityDao;
         this.blogEntityToDocumentPersistence = blogEntityToDocumentPersistence;
+        this.htmlDataManipulation = htmlDataManipulation;
     }
 
     @Override
@@ -76,7 +79,8 @@ public class BlogServiceImplementation implements BlogService {
         }
         BlogImagesAndHtmlRecord imagesAndHtmlRecord = generateImageLinksWithModifiedHtml.process(blogRequest);
         String coverImageLink = coverImageLinkProcessor.process(blogRequest);
-        BlogEntity blogEntity = blogRequestToBlogEntityTransformer.transform(blogRequest, imagesAndHtmlRecord, coverImageLink, chapterEntity);
+        String finalHtml = htmlDataManipulation.process(imagesAndHtmlRecord.modifiedHtml());
+        BlogEntity blogEntity = blogRequestToBlogEntityTransformer.transform(blogRequest, imagesAndHtmlRecord, coverImageLink, chapterEntity, finalHtml);
         BlogEntity blogEntityResponse = blogEntityDao.initOperation(DaoStatus.CREATE, blogEntity);
         BlogDocument blogDocument = blogEntityToDocumentPersistence.persist(blogEntityResponse, DaoStatus.CREATE);
         logger.info("Execution time (Add Blog) : {}ms", System.currentTimeMillis() - startTime);

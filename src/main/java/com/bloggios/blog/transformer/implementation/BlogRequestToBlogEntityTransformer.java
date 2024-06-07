@@ -38,12 +38,13 @@ public class BlogRequestToBlogEntityTransformer {
             BlogRequest blogRequest,
             BlogImagesAndHtmlRecord blogImagesAndHtmlRecord,
             String coverImageLink,
-            ChapterEntity chapterEntity
+            ChapterEntity chapterEntity,
+            String finalHtml
     ) {
         return BlogEntity
                 .builder()
                 .title(blogRequest.getTitle())
-                .detailsHtml(blogImagesAndHtmlRecord.modifiedHtml())
+                .detailsHtml(finalHtml)
                 .delta(blogRequest.getDelta())
                 .detailsText(blogRequest.getDetailsText())
                 .userId(blogRequest.getAuthenticatedUser().getUserId())

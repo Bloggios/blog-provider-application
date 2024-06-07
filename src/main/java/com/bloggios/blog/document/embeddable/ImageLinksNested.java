@@ -40,7 +40,6 @@ import javax.persistence.Embeddable;
  * Created_at - 14 : 08
  */
 
-@Embeddable
 @Getter
 @Setter
 @NoArgsConstructor

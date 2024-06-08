@@ -73,7 +73,7 @@ security-config:
   exclude:
     paths:
       - /actuator/**
-      - /tags/**
+      - /topics/**
       - /unauth/**
   cookie:
     cookie-name: ${ACTIVE_PROFILE:local}.bg-refresh-mgmt

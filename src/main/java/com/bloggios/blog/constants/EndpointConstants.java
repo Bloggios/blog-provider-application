@@ -37,8 +37,8 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class EndpointConstants {
 
-    public static class TagsController {
-        public static final String BASE_PATH = "/tags";
+    public static class TopicsController {
+        public static final String BASE_PATH = "/topics";
     }
 
     public static class BlogController {

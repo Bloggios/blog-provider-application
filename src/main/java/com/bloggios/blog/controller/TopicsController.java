@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(EndpointConstants.TagsController.BASE_PATH)
+@RequestMapping(EndpointConstants.TopicsController.BASE_PATH)
 public class TopicsController {
 
     private final TopicsService topicsService;

@@ -80,16 +80,17 @@ public class UploadFile implements Function<UploadImagePayloadRecord, String> {
 
     @SneakyThrows(value = IOException.class)
     public String uploadImage(String path, MultipartFile multipartFile, String userId) {
+        String month = LocalDate.now().getMonth().toString();
         String originalFilename = multipartFile.getOriginalFilename();
         String randomName = RandomGenerators.generateRandomImageName(userId);
         assert originalFilename != null;
         String imageName = randomName.concat(originalFilename.substring(originalFilename.lastIndexOf(".")));
-        String imagePath = path + File.separator + imageName;
-        File file = new File(path);
+        String imagePath = path + File.separator + month + File.separator + imageName;
+        File file = new File(path + File.separator + month);
         if (!file.exists()) {
-            boolean mkdir = file.mkdir();
+            boolean mkdir = file.mkdirs();
             logger.warn("""
-                    Path Created for Cover Image : {}
+                    Path Created : {}
                     Image Name : {}
                     Image Path : {}
                     """, mkdir, imageName, imagePath);

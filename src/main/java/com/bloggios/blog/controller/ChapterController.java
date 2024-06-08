@@ -6,6 +6,7 @@ import com.bloggios.blog.payload.request.ChapterRequest;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.service.ChapterService;
 import com.bloggios.blog.utils.AsyncUtils;
+import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +52,10 @@ public class ChapterController {
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(
                 chapterService.addChapter(chapterRequest)
         ));
+    }
+
+    @GetMapping
+    public ResponseEntity<ListResponse> getUserChapters(@AuthenticationPrincipal AuthenticatedUser authenticatedUser) {
+        return ResponseEntity.ok(AsyncUtils.getAsyncResult(chapterService.getUserChapters(authenticatedUser)));
     }
 }

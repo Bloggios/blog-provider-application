@@ -1,7 +1,9 @@
 package com.bloggios.blog.service;
 
+import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
 import com.bloggios.blog.payload.request.ChapterRequest;
 import com.bloggios.blog.payload.response.ModuleResponse;
+import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,4 +19,5 @@ import java.util.concurrent.CompletableFuture;
 public interface ChapterService {
 
     CompletableFuture<ModuleResponse> addChapter(ChapterRequest chapterRequest);
+    CompletableFuture<ListResponse> getUserChapters(AuthenticatedUser authenticatedUser);
 }

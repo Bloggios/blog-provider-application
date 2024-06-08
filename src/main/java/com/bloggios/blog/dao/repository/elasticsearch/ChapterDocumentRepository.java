@@ -3,6 +3,8 @@ package com.bloggios.blog.dao.repository.elasticsearch;
 import com.bloggios.blog.document.ChapterDocument;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
+import java.util.List;
+
 /**
  * Owner - Rohit Parihar and Bloggios
  * Author - rohit
@@ -13,4 +15,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 
 public interface ChapterDocumentRepository extends ElasticsearchRepository<ChapterDocument, String> {
+
+    List<ChapterDocument> findByUserId(String userId);
 }

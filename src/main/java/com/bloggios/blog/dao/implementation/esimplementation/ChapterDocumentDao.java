@@ -5,6 +5,7 @@ import com.bloggios.blog.dao.repository.elasticsearch.ChapterDocumentRepository;
 import com.bloggios.blog.document.ChapterDocument;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,5 +26,9 @@ public class ChapterDocumentDao extends EsAbstractDao<ChapterDocument, ChapterDo
 
     public Optional<ChapterDocument> findById(String chapterId) {
         return repository.findById(chapterId);
+    }
+
+    public List<ChapterDocument> findByUserId(String userId) {
+        return repository.findByUserId(userId);
     }
 }

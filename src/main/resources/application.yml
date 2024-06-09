@@ -52,6 +52,7 @@ elasticsearch:
   indices:
     blog: ${ACTIVE_PROFILE:local}.blog-provider.blog
     chapter: ${ACTIVE_PROFILE:local}.blog-provider.chapter
+    like: ${ACTIVE_PROFILE:local}.blog-provider.like
 
 eureka:
   instance:

@@ -60,7 +60,7 @@ public class ServiceConstants {
     public static final String CREATED_ON = "createdOn";
     public static final String DEVSANDBOX = "devsandbox";
     public static final String IMG_TAG = "img";
-    public static final String BLOG_IMAGE = "blog-image";
+    public static final String BLOG_IMAGE = "blog";
     public static final String SRC_ATTRIBUTE = "src";
     public static final Object COVER = "cover";
     public static final String DATE_CREATED = "dateCreated";

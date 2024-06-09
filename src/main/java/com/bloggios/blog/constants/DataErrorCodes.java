@@ -44,4 +44,5 @@ public class DataErrorCodes {
     public static final String BLOG_LIST_REQUEST_NULL = "DE__BLOG-2029";
     public static final String PROFILE_DATA_NOT_FOUND_FEIGN = "DE__BLOG-2030";
     public static final String BLOG_NOT_FOUND = "DE__BLOG-2031";
+    public static final String LIKE_FOR_IS_INVALID = "DE__BLOG-2032";
 }

@@ -63,4 +63,8 @@ public class EndpointConstants {
         public static final String PROFILE_INTERNAL_RESPONSE = "/user-provider/unauth/profile-internal-response/{userId}";
     }
 
+    public static class LikeController {
+        public static final String BASE_PATH = "/blog-provider/like";
+    }
+
 }

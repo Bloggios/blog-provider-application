@@ -65,7 +65,6 @@ public class ServiceConstants {
     public static final Object COVER = "cover";
     public static final String DATE_CREATED = "dateCreated";
     public static final String USER_ID_KEY = "userId";
-
     public static final String TOPIC_KEY = "topic";
     public static final String FEATURE_STATUS_KEY = "featureStatus";
     public static final String USER_PROVIDER_APPLICATION = "user-provider-application";

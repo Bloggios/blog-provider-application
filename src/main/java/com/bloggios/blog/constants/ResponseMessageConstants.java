@@ -39,4 +39,6 @@ public class ResponseMessageConstants {
 
     public static final String BLOG_CREATED = "Blog Created Successfully";
     public static final String CHAPTER_CREATED = "Chapter Created";
+    public static final String UNLIKED = "Unlike";
+    public static final String LIKED = "Like";
 }

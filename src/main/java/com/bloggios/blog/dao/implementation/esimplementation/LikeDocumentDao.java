@@ -26,4 +26,8 @@ public class LikeDocumentDao extends EsAbstractDao<LikeDocument, LikeDocumentRep
     public Optional<LikeDocument> findByDestinationIdAndUserId(String destinationId, String userId) {
         return repository.findByDestinationIdAndUserId(destinationId, userId);
     }
+
+    public void deleteByDocument(LikeDocument likeDocument) {
+        repository.delete(likeDocument);
+    }
 }

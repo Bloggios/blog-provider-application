@@ -1,7 +1,7 @@
 package com.bloggios.blog.service;
 
 import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
-import com.bloggios.blog.payload.response.ModuleResponse;
+import com.bloggios.blog.payload.response.LikeResponse;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -16,5 +16,5 @@ import java.util.concurrent.CompletableFuture;
 
 public interface LikeService {
 
-    CompletableFuture<ModuleResponse> handleLike(String destinationId, String likeFor, AuthenticatedUser authenticatedUser);
+    CompletableFuture<LikeResponse> handleLike(String destinationId, String likeFor, AuthenticatedUser authenticatedUser);
 }

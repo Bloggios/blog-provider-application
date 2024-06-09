@@ -3,7 +3,9 @@ package com.bloggios.blog.implementation;
 import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
 import com.bloggios.blog.dao.implementation.esimplementation.LikeDocumentDao;
 import com.bloggios.blog.document.LikeDocument;
-import com.bloggios.blog.payload.response.ModuleResponse;
+import com.bloggios.blog.payload.response.LikeResponse;
+import com.bloggios.blog.processor.implementation.DoLikeProcessor;
+import com.bloggios.blog.processor.implementation.DoUnlikeProcessor;
 import com.bloggios.blog.service.LikeService;
 import com.bloggios.blog.utils.ValueCheckerUtil;
 import com.bloggios.blog.validator.implementation.businessvalidator.LikeTypeStringValidator;
@@ -28,17 +30,20 @@ public class LikeServiceImplementation implements LikeService {
 
     private final LikeTypeStringValidator likeTypeStringValidator;
     private final LikeDocumentDao likeDocumentDao;
+    private final DoUnlikeProcessor doUnlikeProcessor;
+    private final DoLikeProcessor doLikeProcessor;
 
     @Override
-    public CompletableFuture<ModuleResponse> handleLike(String destinationId, String likeFor, AuthenticatedUser authenticatedUser) {
+    public CompletableFuture<LikeResponse> handleLike(String destinationId, String likeFor, AuthenticatedUser authenticatedUser) {
         ValueCheckerUtil.isValidUUID(destinationId);
         likeTypeStringValidator.validate(likeFor);
         Optional<LikeDocument> likeDocumentOptional = likeDocumentDao.findByDestinationIdAndUserId(destinationId, authenticatedUser.getUserId());
+        LikeResponse likeResponse;
         if (likeDocumentOptional.isPresent()) {
-            // Do Unlike
+            likeResponse = doUnlikeProcessor.process(likeDocumentOptional.get());
         } else {
-            // Do Like
+            likeResponse = doLikeProcessor.process(destinationId, likeFor, authenticatedUser.getUserId());
         }
-        return null;
+        return CompletableFuture.completedFuture(likeResponse);
     }
 }

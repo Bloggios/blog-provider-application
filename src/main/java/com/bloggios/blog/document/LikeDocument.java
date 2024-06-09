@@ -65,12 +65,6 @@ public class LikeDocument {
             type = FieldType.Keyword,
             normalizer = ServiceConstants.DEFAULT_NORMALIZER
     )
-    private String version;
-
-    @Field(
-            type = FieldType.Keyword,
-            normalizer = ServiceConstants.DEFAULT_NORMALIZER
-    )
     private String apiVersion;
 
     @Field(

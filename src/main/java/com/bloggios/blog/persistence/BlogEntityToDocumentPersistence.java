@@ -53,6 +53,8 @@ public class BlogEntityToDocumentPersistence {
                 .featureStatus(blogEntity.getFeatureStatus())
                 .topics(getTopicsNested(blogEntity))
                 .coverImage(blogEntity.getCoverImage())
+                .seoTitle(blogEntity.getSeoTitle())
+                .canonicalUrl(blogEntity.getCanonicalUrl())
                 .build();
         return blogDocumentDao.initOperation(daoStatus, blogDocument);
     }

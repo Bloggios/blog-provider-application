@@ -8,6 +8,8 @@ import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
 import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,8 @@ import java.util.List;
 @RestController
 @RequestMapping(EndpointConstants.BlogController.BASE_PATH)
 public class BlogController {
+
+    private static final Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     private final BlogService blogService;
 
@@ -53,6 +57,7 @@ public class BlogController {
             @RequestParam(required = false) String seoTitle,
             @RequestParam(required = false) String canonicalUrl
             ) {
+        logger.warn("1001 : {}", images.size());
         BlogRequest build = BlogRequest
                 .builder()
                 .images(images)

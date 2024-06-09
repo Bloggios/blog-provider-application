@@ -57,7 +57,6 @@ public class BlogController {
             @RequestParam(required = false) String seoTitle,
             @RequestParam(required = false) String canonicalUrl
             ) {
-        logger.warn("1001 : {}", images.size());
         BlogRequest build = BlogRequest
                 .builder()
                 .images(images)

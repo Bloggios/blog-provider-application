@@ -2,6 +2,7 @@ package com.bloggios.blog.service;
 
 import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.response.BlogCountResponse;
 import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
@@ -25,4 +26,5 @@ public interface BlogService {
             Integer page, String userId, String topic
     );
     CompletableFuture<BlogResponse> getUnauthBlog(String blogId);
+    CompletableFuture<BlogCountResponse> countBlog(String userId);
 }

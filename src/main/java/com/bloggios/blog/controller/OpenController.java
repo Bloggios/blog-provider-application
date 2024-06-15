@@ -1,6 +1,7 @@
 package com.bloggios.blog.controller;
 
 import com.bloggios.blog.constants.EndpointConstants;
+import com.bloggios.blog.payload.response.BlogCountResponse;
 import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
@@ -44,5 +45,10 @@ public class OpenController {
             @RequestParam String blogId
     ) {
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.getUnauthBlog(blogId)));
+    }
+
+    @GetMapping(EndpointConstants.OpenController.BlogData.BLOG_COUNT_INTERNAL_RESPONSE)
+    public ResponseEntity<BlogCountResponse> countBlogInternalResponse(@RequestParam String userId) {
+        return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.countBlog(userId)));
     }
 }

@@ -56,6 +56,7 @@ public class EndpointConstants {
         public static class BlogData {
             public static final String BASE_PATH = "/blog";
             public static final String BLOGS_LIST = BASE_PATH + "/list";
+            public static final String BLOG_COUNT_INTERNAL_RESPONSE = "/count-blogs";
         }
     }
 

@@ -13,4 +13,6 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
  */
 
 public interface BlogDocumentRepository extends ElasticsearchRepository<BlogDocument, String> {
+
+    long countByUserId(String userId);
 }

@@ -16,6 +16,7 @@ import com.bloggios.blog.modal.ChapterEntity;
 import com.bloggios.blog.payload.record.BlogImagesAndHtmlRecord;
 import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.response.BlogCountResponse;
 import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.payload.response.BlogResponseForList;
 import com.bloggios.blog.payload.response.ModuleResponse;
@@ -127,6 +128,7 @@ public class BlogServiceImplementation implements BlogService {
     }
 
     @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
     public CompletableFuture<ListResponse> blogList(BlogListRequest blogListRequest) {
         long startTime = System.currentTimeMillis();
         if (Objects.isNull(blogListRequest)) throw new BadRequestException(DataErrorCodes.BLOG_LIST_REQUEST_NULL);
@@ -152,6 +154,7 @@ public class BlogServiceImplementation implements BlogService {
     }
 
     @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
     public CompletableFuture<ListResponse> unauthBlogList(Integer page, String userId, String topic) {
         long startTime = System.currentTimeMillis();
         List<Filter> filters = new ArrayList<>();
@@ -208,6 +211,7 @@ public class BlogServiceImplementation implements BlogService {
     }
 
     @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
     public CompletableFuture<BlogResponse> getUnauthBlog(String blogId) {
         long startTime = System.currentTimeMillis();
         ValueCheckerUtil.isValidUUID(blogId);
@@ -218,5 +222,20 @@ public class BlogServiceImplementation implements BlogService {
         BlogResponse transform = blogDocumentToBlogResponseTransformer.transform(blogDocument);
         logger.info("Execution time (Get Unauth Blog) : {}ms", System.currentTimeMillis() - startTime);
         return CompletableFuture.completedFuture(transform);
+    }
+
+    @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
+    public CompletableFuture<BlogCountResponse> countBlog(String userId) {
+        long startTime = System.currentTimeMillis();
+        ValueCheckerUtil.isValidUUID(userId);
+        long count = blogDocumentDao.countByUserId(userId);
+        logger.info("Execution time (Count Blog) : {}ms", System.currentTimeMillis() - startTime);
+        return CompletableFuture.completedFuture(
+                BlogCountResponse
+                        .builder()
+                        .blogs(count)
+                        .build()
+        );
     }
 }

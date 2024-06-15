@@ -52,4 +52,8 @@ public class BlogDocumentDao extends EsAbstractDao<BlogDocument, BlogDocumentRep
     public Optional<BlogDocument> findById(String blogId) {
         return repository.findById(blogId);
     }
+
+    public long countByUserId(String userId) {
+        return repository.countByUserId(userId);
+    }
 }

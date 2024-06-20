@@ -65,7 +65,7 @@ public class EndpointConstants {
     }
 
     public static class LikeController {
-        public static final String BASE_PATH = "/blog-provider/like";
+        public static final String BASE_PATH = "/like";
     }
 
 }

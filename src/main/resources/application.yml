@@ -42,8 +42,7 @@ application:
   profile: ${ACTIVE_PROFILE}
   base-path: ${BASE_PATH}
   environment:
-    devsandbox-assets: https://assets.bloggios.cloud/blog-provider
-    production-assets: https://assets.bloggios.com/blog-provider
+    assets: https://assets.bloggios.in/blog-provider
 
 elasticsearch:
   server: ${ES_SERVER:localhost}

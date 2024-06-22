@@ -55,12 +55,7 @@ public class CoverImageLinkProcessor {
     private String generateLink(String imageName) {
         String profile = environment.getProperty(EnvironmentConstants.APPLICATION_PROFILE);
         assert profile != null;
-        String url;
-        if (profile.equalsIgnoreCase(ServiceConstants.DEVSANDBOX)) {
-            url = environment.getProperty(EnvironmentConstants.DEVSANDBOX_ASSETS);
-        } else {
-            url = environment.getProperty(EnvironmentConstants.PRODUCTION_ASSETS);
-        }
+        String url = environment.getProperty(EnvironmentConstants.ASSETS);
         assert url != null;
         return url +
                 "/" +

@@ -46,8 +46,7 @@ public class EnvironmentConstants {
     public static final String CHAPTER_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.chapter')}";
     public static final String BLOG_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.blog')}";
     public static final String APPLICATION_PROFILE = "application.profile";
-    public static final String DEVSANDBOX_ASSETS = "application.environment.devsandbox-assets";
-    public static final String PRODUCTION_ASSETS = "application.environment.production-assets";
+    public static final String ASSETS = "application.environment.assets";
     public static final String BLOG_IMAGES_PATH = "blog-files.blog-images";
     public static final String COVER_IMAGES_PATH = "blog-files.cover-images";
     public static final String LIKE_ES_INDEX_GET_PROPERTY = "#{@environment.getProperty('elasticsearch.indices.like')}";

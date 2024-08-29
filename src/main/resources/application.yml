@@ -75,6 +75,17 @@ security-config:
       - /actuator/**
       - /topics/**
       - /unauth/**
+      - /api/v1/auth/**"
+      - /v2/api-docs
+      - /swagger-resources
+      - /swagger-resources/**
+      - /configuration/ui
+      - /configuration/security
+      - /swagger-ui/**
+      - /webjars/**
+      - /swagger-ui.html
+      - /v3/api-docs
+      - /v3/api-docs/**
   cookie:
     cookie-name: ${ACTIVE_PROFILE:local}.bg-refresh-mgmt
     paths:
@@ -86,3 +97,27 @@ security-config:
 blog-files:
   blog-images: ${BLOG_IMAGES_PATH:files/blog-provider/blog}
   cover-images: ${COVER_IMAGES_PATH:files/blog-provider/cover}
+
+swagger-properties:
+  group-name:
+    definition: ${spring.application.name}
+    scan-packages: com.bloggios.blog
+  info:
+    title: Bloggios - Blog Provider Application
+    version: @version@
+    description: API Documentation for blog-provider-application
+    summary: The Blog Provider Application, developed using Java 17 and Spring Boot, serves as a comprehensive backend microservice for Bloggios. It offers a full suite of blogging features, including commenting, likes, and more, to enhance user engagement and content management.
+    contact:
+      name: Bloggios
+      email: support@bloggios.com
+      url: https://www.bloggios.com
+    license:
+      name: Apache 2 License
+      url: https://github.com/Bloggios/blog-provider-application/blob/main/LICENSE
+  servers:
+    local:
+      name: Local Port
+      url: http://localhost:${server.port}/blog-provider
+    production:
+      name: Hosted Port
+      url: https://api.bloggios.com/blog-provider

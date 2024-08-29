@@ -9,9 +9,8 @@ import com.bloggios.blog.modal.BlogEntity;
 import com.bloggios.blog.modal.SchedulerData;
 import com.bloggios.blog.persistence.BlogEntityToDocumentPersistence;
 import com.bloggios.blog.scheduler.ExecuteScheduler;
-import com.bloggios.blog.scheduler.SchedulerValidator;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.logging.LoggersEndpoint;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -29,29 +28,16 @@ import java.util.UUID;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class BlogSchedulerImplementation implements ExecuteScheduler {
 
     private final SchedulerDataDao schedulerDataDao;
-    private final SchedulerValidator schedulerValidator;
     private final BlogEntityDao blogEntityDao;
     private final BlogEntityToDocumentPersistence blogEntityToDocumentPersistence;
-
-    public BlogSchedulerImplementation(
-            SchedulerDataDao schedulerDataDao,
-            SchedulerValidator schedulerValidator,
-            BlogEntityDao blogEntityDao,
-            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence
-    ) {
-        this.schedulerDataDao = schedulerDataDao;
-        this.schedulerValidator = schedulerValidator;
-        this.blogEntityDao = blogEntityDao;
-        this.blogEntityToDocumentPersistence = blogEntityToDocumentPersistence;
-    }
 
     @Override
     @Transactional
     public void execute(SchedulerData schedulerData) {
-        schedulerValidator.validate(schedulerData);
         Optional<BlogEntity> optionalBlogEntity = blogEntityDao.findById(schedulerData.getDestId());
         if (optionalBlogEntity.isEmpty()) return;
         BlogEntity blogEntity = optionalBlogEntity.get();

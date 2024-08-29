@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Owner - Rohit Parihar
@@ -18,4 +19,5 @@ import java.util.List;
 public interface SchedulerDataRepository extends JpaRepository<SchedulerData, String> {
 
     List<SchedulerData> findAllByScheduleDateLessThanEqual(Date currentDate);
+    List<SchedulerData> findAllByUserId(String userId);
 }

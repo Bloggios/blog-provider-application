@@ -32,4 +32,8 @@ public class SchedulerDataDao extends PgAbstractDao<SchedulerData, SchedulerData
     public void deleteByEntity(SchedulerData schedulerData) {
         repository.delete(schedulerData);
     }
+
+    public List<SchedulerData> findByUserId(String userId) {
+        return repository.findAllByUserId(userId);
+    }
 }

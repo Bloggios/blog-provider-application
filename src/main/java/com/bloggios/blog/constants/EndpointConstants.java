@@ -68,4 +68,7 @@ public class EndpointConstants {
         public static final String BASE_PATH = "/like";
     }
 
+    public static class SchedulerController {
+        public static final String BASE_PATH = "/scheduler";
+    }
 }

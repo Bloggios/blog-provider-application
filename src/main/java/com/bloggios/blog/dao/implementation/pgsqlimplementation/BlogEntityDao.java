@@ -5,6 +5,8 @@ import com.bloggios.blog.dao.repository.postgres.BlogEntityRepository;
 import com.bloggios.blog.modal.BlogEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 /**
  * Owner - Rohit Parihar and Bloggios
  * Author - rohit
@@ -19,5 +21,9 @@ public class BlogEntityDao extends PgAbstractDao<BlogEntity, BlogEntityRepositor
 
     protected BlogEntityDao(BlogEntityRepository repository) {
         super(repository);
+    }
+
+    public Optional<BlogEntity> findById(String blogId) {
+        return repository.findById(blogId);
     }
 }

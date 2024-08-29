@@ -30,22 +30,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.http.HttpHeaders;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateFactory;
 
 /**
  * Owner - Rohit Parihar
@@ -57,8 +46,8 @@ import java.security.cert.CertificateFactory;
  */
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.bloggios.user.dao.repository.elasticsearch")
-@ComponentScan(basePackages = "com.bloggios.user")
+@EnableElasticsearchRepositories(basePackages = "com.bloggios.blog.dao.repository.elasticsearch")
+@ComponentScan(basePackages = "com.bloggios.blog")
 public class ElasticClientConfiguration extends AbstractElasticsearchConfiguration {
 
     private final Environment environment;
@@ -89,29 +78,5 @@ public class ElasticClientConfiguration extends AbstractElasticsearchConfigurati
         return RestClients
                 .create(clientConfiguration)
                 .rest();
-    }
-
-    @Bean
-    public ElasticsearchOperations template() {
-        return new ElasticsearchRestTemplate(elasticsearchClient());
-    }
-
-    @Bean
-    public SSLContext sslContext() throws Exception {
-        Resource certificateResource = new ClassPathResource("certificates/http_ca.crt");
-        InputStream certificateInputStream = certificateResource.getInputStream();
-        KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        keyStore.load(null, null);
-        keyStore.setCertificateEntry("alias", loadCertificate(certificateInputStream));
-        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        trustManagerFactory.init(keyStore);
-        SSLContext sslContext = SSLContext.getInstance("TLS");
-        sslContext.init(null, trustManagerFactory.getTrustManagers(), null);
-        return sslContext;
-    }
-
-    public static Certificate loadCertificate(InputStream certificateInputStream) throws Exception {
-        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-        return certificateFactory.generateCertificate(certificateInputStream);
     }
 }

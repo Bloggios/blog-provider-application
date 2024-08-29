@@ -21,6 +21,7 @@ import com.bloggios.blog.payload.response.BlogResponse;
 import com.bloggios.blog.payload.response.BlogResponseForList;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.persistence.BlogEntityToDocumentPersistence;
+import com.bloggios.blog.processor.implementation.AddBlogSchedulerProcessor;
 import com.bloggios.blog.processor.implementation.CoverImageLinkProcessor;
 import com.bloggios.blog.processor.implementation.GenerateImageLinksWithModifiedHtml;
 import com.bloggios.blog.processor.implementation.HtmlDataManipulation;
@@ -35,6 +36,7 @@ import com.bloggios.blog.validator.implementation.exhibitor.BlogRequestExhibitor
 import com.bloggios.elasticsearch.configuration.payload.ListRequest;
 import com.bloggios.elasticsearch.configuration.payload.lspayload.Filter;
 import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -58,6 +60,7 @@ import java.util.concurrent.CompletableFuture;
  */
 
 @Service
+@RequiredArgsConstructor
 public class BlogServiceImplementation implements BlogService {
 
     private static final Logger logger = LoggerFactory.getLogger(BlogServiceImplementation.class);
@@ -75,30 +78,7 @@ public class BlogServiceImplementation implements BlogService {
     private final TopicsValidator topicsValidator;
     private final BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer;
     private final BlogDocumentToBlogResponseTransformer blogDocumentToBlogResponseTransformer;
-
-    public BlogServiceImplementation(
-            BlogRequestExhibitor blogRequestExhibitor,
-            GenerateImageLinksWithModifiedHtml generateImageLinksWithModifiedHtml,
-            CoverImageLinkProcessor coverImageLinkProcessor,
-            ChapterEntityDao chapterEntityDao,
-            BlogRequestToBlogEntityTransformer blogRequestToBlogEntityTransformer,
-            BlogEntityDao blogEntityDao,
-            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence,
-            HtmlDataManipulation htmlDataManipulation, BlogListToListRequestTransformer blogListToListRequestTransformer, BlogDocumentDao blogDocumentDao, TopicsValidator topicsValidator, BlogDocumentToBlogResponseForListTransformer blogDocumentToBlogResponseForListTransformer, BlogDocumentToBlogResponseTransformer blogDocumentToBlogResponseTransformer) {
-        this.blogRequestExhibitor = blogRequestExhibitor;
-        this.generateImageLinksWithModifiedHtml = generateImageLinksWithModifiedHtml;
-        this.coverImageLinkProcessor = coverImageLinkProcessor;
-        this.chapterEntityDao = chapterEntityDao;
-        this.blogRequestToBlogEntityTransformer = blogRequestToBlogEntityTransformer;
-        this.blogEntityDao = blogEntityDao;
-        this.blogEntityToDocumentPersistence = blogEntityToDocumentPersistence;
-        this.htmlDataManipulation = htmlDataManipulation;
-        this.blogListToListRequestTransformer = blogListToListRequestTransformer;
-        this.blogDocumentDao = blogDocumentDao;
-        this.topicsValidator = topicsValidator;
-        this.blogDocumentToBlogResponseForListTransformer = blogDocumentToBlogResponseForListTransformer;
-        this.blogDocumentToBlogResponseTransformer = blogDocumentToBlogResponseTransformer;
-    }
+    private final AddBlogSchedulerProcessor addBlogSchedulerProcessor;
 
     @Override
     @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
@@ -115,6 +95,7 @@ public class BlogServiceImplementation implements BlogService {
         String finalHtml = htmlDataManipulation.process(imagesAndHtmlRecord.modifiedHtml());
         BlogEntity blogEntity = blogRequestToBlogEntityTransformer.transform(blogRequest, imagesAndHtmlRecord, coverImageLink, chapterEntity, finalHtml);
         BlogEntity blogEntityResponse = blogEntityDao.initOperation(DaoStatus.CREATE, blogEntity);
+        CompletableFuture.runAsync(()-> addBlogSchedulerProcessor.process(blogRequest, blogEntity));
         BlogDocument blogDocument = blogEntityToDocumentPersistence.persist(blogEntityResponse, DaoStatus.CREATE);
         logger.info("Execution time (Add Blog) : {}ms", System.currentTimeMillis() - startTime);
         return CompletableFuture.completedFuture(

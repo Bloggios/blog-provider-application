@@ -69,9 +69,6 @@ public class BlogEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateUpdated;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date scheduledOn;
-
     private String remoteAddress;
 
     @ElementCollection

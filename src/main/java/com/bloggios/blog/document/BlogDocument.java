@@ -104,11 +104,6 @@ public class BlogDocument {
     private Date dateUpdated;
 
     @Field(
-            type = FieldType.Date
-    )
-    private Date scheduledOn;
-
-    @Field(
             type = FieldType.Keyword,
             normalizer = ServiceConstants.DEFAULT_NORMALIZER
     )

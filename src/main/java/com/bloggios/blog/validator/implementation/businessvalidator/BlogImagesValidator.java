@@ -54,17 +54,18 @@ public class BlogImagesValidator implements BusinessValidator<BlogRequest> {
         List<MultipartFile> multipartFiles = blogRequest.getImages();
         AuthenticatedUser authenticatedUser = blogRequest.getAuthenticatedUser();
         if (Objects.nonNull(multipartFiles)) {
-            if (authenticatedUser.isBadge()) {
-                if (multipartFiles.size() > 10) throw new BadRequestException(
-                        DataErrorCodes.IMAGES_LIMIT_EXCEED,
-                        String.format(ResponseErrorMessageConstants.IMAGES_LIMIT_EXCEED, "10")
-                );
-            } else {
-                if (multipartFiles.size() > 5) throw new BadRequestException(
-                        DataErrorCodes.IMAGES_LIMIT_EXCEED,
-                        String.format(ResponseErrorMessageConstants.IMAGES_LIMIT_EXCEED, "5")
-                );
-            }
+//            if (authenticatedUser.isBadge()) {
+//                if (multipartFiles.size() > 10) throw new BadRequestException(
+//                        DataErrorCodes.IMAGES_LIMIT_EXCEED,
+//                        String.format(ResponseErrorMessageConstants.IMAGES_LIMIT_EXCEED, "10")
+//                );
+//            } else {
+//
+//            }
+            if (multipartFiles.size() > 5) throw new BadRequestException(
+                    DataErrorCodes.IMAGES_LIMIT_EXCEED,
+                    String.format(ResponseErrorMessageConstants.IMAGES_LIMIT_EXCEED, "5")
+            );
             checkForDuplicate(multipartFiles);
             multipartFiles.forEach(this::validateImage);
         }

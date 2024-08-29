@@ -3,8 +3,6 @@ package com.bloggios.blog.dao.repository.postgres;
 import com.bloggios.blog.modal.BlogEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 /**
  * Owner - Rohit Parihar and Bloggios
  * Author - rohit

@@ -68,4 +68,5 @@ public class ServiceConstants {
     public static final String TOPIC_KEY = "topic";
     public static final String FEATURE_STATUS_KEY = "featureStatus";
     public static final String USER_PROVIDER_APPLICATION = "user-provider-application";
+    public static final String SCHEDULER_TABLE = "scheduler";
 }

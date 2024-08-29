@@ -10,8 +10,8 @@ import com.bloggios.blog.payload.response.LikeResponse;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.*;
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Owner - Rohit Parihar and Bloggios

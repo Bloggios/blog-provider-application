@@ -46,7 +46,6 @@ public class BlogEntityToDocumentPersistence {
                 .apiVersion(blogEntity.getApiVersion())
                 .dateCreated(blogEntity.getDateCreated())
                 .dateUpdated(blogEntity.getDateUpdated())
-                .scheduledOn(blogEntity.getScheduledOn())
                 .remoteAddress(blogEntity.getRemoteAddress())
                 .imageLinks(getImageLinksNested(blogEntity))
                 .chapterId(Objects.nonNull(blogEntity.getChapter()) ? blogEntity.getChapter().getChapterId() : null)

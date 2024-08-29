@@ -36,9 +36,7 @@ public class TwoMinutesScheduler implements TimeScheduler {
 
     @Override
     public void initOperation() {
-        log.error("Scheduler Date : {}", new Date());
         List<SchedulerData> overduePendingSchedulingData = schedulerDataDao.getOverduePendingSchedulingData();
-        log.error("Schedulers List: {}", overduePendingSchedulingData.size());
         if (overduePendingSchedulingData.isEmpty()) return;
         overduePendingSchedulingData
                 .forEach(schedulerData -> {

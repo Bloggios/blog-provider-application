@@ -26,16 +26,17 @@ public class BlogDetailsTextValidator implements BusinessValidator<BlogRequest> 
         AuthenticatedUser authenticatedUser = blogRequest.getAuthenticatedUser();
         if (ObjectUtils.isEmpty(blogRequest.getDetailsText()))
             throw new BadRequestException(DataErrorCodes.DETAILS_NOT_PRESENT);
-        if (authenticatedUser.isBadge()) {
-            if (blogRequest.getDetailsText().length() > 10000) {
-                throw new BadRequestException(DataErrorCodes.BLOG_BODY_LIMIT_EXCEED,
-                        String.format(ResponseErrorMessageConstants.BLOG_BODY_LIMIT_EXCEED, "10000"));
-            }
-        } else {
-            if (blogRequest.getDetailsText().length() > 5000) {
-                throw new BadRequestException(DataErrorCodes.BLOG_BODY_LIMIT_EXCEED,
-                        String.format(ResponseErrorMessageConstants.BLOG_BODY_LIMIT_EXCEED, "5000"));
-            }
+//        if (authenticatedUser.isBadge()) {
+//            if (blogRequest.getDetailsText().length() > 10000) {
+//                throw new BadRequestException(DataErrorCodes.BLOG_BODY_LIMIT_EXCEED,
+//                        String.format(ResponseErrorMessageConstants.BLOG_BODY_LIMIT_EXCEED, "10000"));
+//            }
+//        } else {
+//
+//        }
+        if (blogRequest.getDetailsText().length() > 5000) {
+            throw new BadRequestException(DataErrorCodes.BLOG_BODY_LIMIT_EXCEED,
+                    String.format(ResponseErrorMessageConstants.BLOG_BODY_LIMIT_EXCEED, "5000"));
         }
     }
 }

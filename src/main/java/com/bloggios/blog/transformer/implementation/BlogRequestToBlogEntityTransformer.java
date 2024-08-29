@@ -11,7 +11,6 @@ import com.bloggios.blog.utils.IpUtils;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +29,9 @@ public class BlogRequestToBlogEntityTransformer {
 
     private final Environment environment;
 
-    public BlogRequestToBlogEntityTransformer(Environment environment) {
+    public BlogRequestToBlogEntityTransformer(
+            Environment environment
+    ) {
         this.environment = environment;
     }
 
@@ -51,7 +52,6 @@ public class BlogRequestToBlogEntityTransformer {
                 .version(UUID.randomUUID().toString())
                 .apiVersion(environment.getProperty(EnvironmentConstants.APPLICATION_VERSION))
                 .dateCreated(new Date())
-                .scheduledOn(getScheduledOn(blogRequest))
                 .remoteAddress(IpUtils.getRemoteAddress(blogRequest.getHttpServletRequest()))
                 .imageLinks(blogImagesAndHtmlRecord.imageLinks())
                 .chapter(chapterEntity)
@@ -69,14 +69,5 @@ public class BlogRequestToBlogEntityTransformer {
         } else {
             return FeatureStatus.VISIBLE;
         }
-    }
-
-    private Date getScheduledOn(BlogRequest blogRequest) {
-        FeatureStatus featureStatus = getFeatureStatus(blogRequest);
-        if (featureStatus.equals(FeatureStatus.SCHEDULED)) {
-            Date currentDate = Calendar.getInstance().getTime();
-            return new Date(currentDate.getTime() + blogRequest.getMilliseconds());
-        }
-        return null;
     }
 }

@@ -25,7 +25,6 @@ package com.bloggios.blog.processor.implementation;
 
 import com.bloggios.blog.constants.EnvironmentConstants;
 import com.bloggios.blog.constants.InternalExceptionCodes;
-import com.bloggios.blog.constants.ServiceConstants;
 import com.bloggios.blog.exception.payloads.BadRequestException;
 import com.bloggios.blog.file.UploadFile;
 import com.bloggios.blog.modal.embeddable.ImageLinksEntity;

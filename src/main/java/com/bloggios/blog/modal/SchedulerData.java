@@ -38,8 +38,8 @@ public class SchedulerData {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
-    private String userId;
-    private String version;
+    private String destId;
+    private String apiVersion;
 
     @Column(columnDefinition = "boolean default false")
     private boolean isSchedulingDone;

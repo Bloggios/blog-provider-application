@@ -25,7 +25,8 @@ public class SchedulerDataDao extends PgAbstractDao<SchedulerData, SchedulerData
     }
 
     public List<SchedulerData> getOverduePendingSchedulingData() {
-        return repository.findAllByIsSchedulingDoneTrueAndScheduleDateLessThanEqual(new Date());
+
+        return repository.findAllByScheduleDateLessThanEqual(new Date());
     }
 
     public void deleteByEntity(SchedulerData schedulerData) {

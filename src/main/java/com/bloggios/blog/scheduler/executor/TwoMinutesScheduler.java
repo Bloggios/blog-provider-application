@@ -4,8 +4,10 @@ import com.bloggios.blog.dao.implementation.pgsqlimplementation.SchedulerDataDao
 import com.bloggios.blog.modal.SchedulerData;
 import com.bloggios.blog.scheduler.TimeScheduler;
 import com.bloggios.blog.scheduler.implementation.BlogSchedulerImplementation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,6 +20,7 @@ import java.util.List;
  */
 
 @Component
+@Slf4j
 public class TwoMinutesScheduler implements TimeScheduler {
 
     private final SchedulerDataDao schedulerDataDao;
@@ -33,7 +36,9 @@ public class TwoMinutesScheduler implements TimeScheduler {
 
     @Override
     public void initOperation() {
+        log.error("Scheduler Date : {}", new Date());
         List<SchedulerData> overduePendingSchedulingData = schedulerDataDao.getOverduePendingSchedulingData();
+        log.error("Schedulers List: {}", overduePendingSchedulingData.size());
         if (overduePendingSchedulingData.isEmpty()) return;
         overduePendingSchedulingData
                 .forEach(schedulerData -> {

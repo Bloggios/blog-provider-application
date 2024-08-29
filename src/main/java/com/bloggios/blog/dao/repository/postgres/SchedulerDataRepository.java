@@ -17,5 +17,5 @@ import java.util.List;
 
 public interface SchedulerDataRepository extends JpaRepository<SchedulerData, String> {
 
-    List<SchedulerData> findAllByIsSchedulingDoneTrueAndScheduleDateLessThanEqual(Date currentDate);
+    List<SchedulerData> findAllByScheduleDateLessThanEqual(Date currentDate);
 }

@@ -35,19 +35,17 @@ public class BlogSchedulerImplementation implements ExecuteScheduler {
     private final SchedulerValidator schedulerValidator;
     private final BlogEntityDao blogEntityDao;
     private final BlogEntityToDocumentPersistence blogEntityToDocumentPersistence;
-    private final LoggersEndpoint loggersEndpoint;
 
     public BlogSchedulerImplementation(
             SchedulerDataDao schedulerDataDao,
             SchedulerValidator schedulerValidator,
             BlogEntityDao blogEntityDao,
-            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence,
-            LoggersEndpoint loggersEndpoint) {
+            BlogEntityToDocumentPersistence blogEntityToDocumentPersistence
+    ) {
         this.schedulerDataDao = schedulerDataDao;
         this.schedulerValidator = schedulerValidator;
         this.blogEntityDao = blogEntityDao;
         this.blogEntityToDocumentPersistence = blogEntityToDocumentPersistence;
-        this.loggersEndpoint = loggersEndpoint;
     }
 
     @Override

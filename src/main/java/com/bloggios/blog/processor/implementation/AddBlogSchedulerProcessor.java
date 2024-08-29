@@ -60,8 +60,8 @@ public class AddBlogSchedulerProcessor {
                 .dateCreated(new Date())
                 .scheduleDate(scheduledDate)
                 .destId(blogEntity.getBlogId())
+                .userId(blogEntity.getUserId())
                 .apiVersion(environment.getProperty(EnvironmentConstants.APPLICATION_VERSION))
-                .isSchedulingDone(false)
                 .scheduledTaskType(ScheduledTaskType.BLOG_SCHEDULE)
                 .build();
     }

@@ -36,13 +36,13 @@ public class SchedulerData {
     @Temporal(TemporalType.TIMESTAMP)
     private Date scheduleDate;
 
+    @Column(nullable = false)
+    private String userId;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCreated;
     private String destId;
     private String apiVersion;
-
-    @Column(columnDefinition = "boolean default false")
-    private boolean isSchedulingDone;
 
     @Enumerated(EnumType.STRING)
     private ScheduledTaskType scheduledTaskType;

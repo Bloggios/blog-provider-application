@@ -78,7 +78,7 @@ public class HtmlDataManipulation {
     private static void manipulateP(Document document) {
         Elements pElements = document.select("p");
         for (Element p : pElements) {
-            p.addClass("break-words leading-5 [&:not(:first-child)]:mt-6 text-medium md:text-large");
+            p.addClass("break-words leading-5 [&:not(:first-child)]:mt-2 text-medium md:text-large");
         }
     }
 

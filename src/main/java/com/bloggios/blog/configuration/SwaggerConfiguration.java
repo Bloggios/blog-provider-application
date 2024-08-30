@@ -51,7 +51,9 @@ public class SwaggerConfiguration {
                         .contact(new Contact().name(swaggerConfigProperties.getInfo().getContact().getName()).email(swaggerConfigProperties.getInfo().getContact().getEmail()).url(swaggerConfigProperties.getInfo().getContact().getUrl())))
                 .servers(getServers())
                 .components(new Components()
-                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
+                        .addSecuritySchemes(
+                                "bearerAuth",
+                                new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")
                                 .name("bearerAuth")
                                 .type(SecurityScheme.Type.HTTP)
                                 .scheme("bearer")

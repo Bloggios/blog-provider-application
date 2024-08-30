@@ -56,7 +56,7 @@ public class BlogController {
             HttpServletRequest httpServletRequest,
             @RequestParam(required = false) String seoTitle,
             @RequestParam(required = false) String canonicalUrl
-            ) {
+    ) {
         BlogRequest build = BlogRequest
                 .builder()
                 .images(images)

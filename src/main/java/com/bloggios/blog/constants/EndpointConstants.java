@@ -58,6 +58,10 @@ public class EndpointConstants {
             public static final String BLOGS_LIST = BASE_PATH + "/list";
             public static final String BLOG_COUNT_INTERNAL_RESPONSE = "/count-blogs";
         }
+
+        public static class LikeData {
+            public static final String COUNT_LIKES = "/count-likes";
+        }
     }
 
     public static class FeignClient {

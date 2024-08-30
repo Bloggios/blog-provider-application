@@ -30,4 +30,8 @@ public class LikeDocumentDao extends EsAbstractDao<LikeDocument, LikeDocumentRep
     public void deleteByDocument(LikeDocument likeDocument) {
         repository.delete(likeDocument);
     }
+
+    public long countLikeDocumentByDestinationId(String destinationId) {
+        return repository.countLikeDocumentByDestinationId(destinationId);
+    }
 }

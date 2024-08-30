@@ -17,4 +17,5 @@ import java.util.Optional;
 public interface LikeDocumentRepository extends ElasticsearchRepository<LikeDocument, String> {
 
     Optional<LikeDocument> findByDestinationIdAndUserId(String destinationId, String userId);
+    long countLikeDocumentByDestinationId(String destinationId);
 }

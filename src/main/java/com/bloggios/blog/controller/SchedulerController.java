@@ -37,9 +37,6 @@ public class SchedulerController {
 
     @GetMapping
     @Operation(
-            requestBody = @RequestBody(
-                    required = false
-            ),
             responses = {
                     @ApiResponse(description = "SUCCESS", responseCode = "200", content = @Content(
                             mediaType = "application/json", schema = @Schema(implementation = ListResponse.class)

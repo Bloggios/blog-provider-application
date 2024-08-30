@@ -4,10 +4,17 @@ import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
 import com.bloggios.blog.constants.EndpointConstants;
 import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
+import com.bloggios.blog.payload.response.ExceptionResponse;
+import com.bloggios.blog.payload.response.LikeResponse;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;
 import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +49,27 @@ public class BlogController {
     }
 
     @PostMapping
+    @Operation(
+            responses = {
+                    @ApiResponse(description = "SUCCESS", responseCode = "200", content = @Content(
+                            mediaType = "application/json", schema = @Schema(implementation = ModuleResponse.class)
+                    )),
+                    @ApiResponse(description = "No Content", responseCode = "401", content = {
+                            @Content(schema = @Schema(implementation = Void.class))
+                    }),
+                    @ApiResponse(description = "FORBIDDEN", responseCode = "403", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                    }),
+                    @ApiResponse(description = "BAD REQUEST", responseCode = "400", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionResponse.class))
+                    })
+            },
+            security = {
+                    @SecurityRequirement(
+                            name = "bearerAuth"
+                    )
+            }
+    )
     public ResponseEntity<ModuleResponse> addBlog(
             @RequestPart(required = false) List<MultipartFile> images,
             @RequestParam(required = true) String title,
@@ -77,6 +105,27 @@ public class BlogController {
     }
 
     @PostMapping(EndpointConstants.BlogController.BLOG_LIST)
+    @Operation(
+            responses = {
+                    @ApiResponse(description = "SUCCESS", responseCode = "200", content = @Content(
+                            mediaType = "application/json", schema = @Schema(implementation = ListResponse.class)
+                    )),
+                    @ApiResponse(description = "No Content", responseCode = "401", content = {
+                            @Content(schema = @Schema(implementation = Void.class))
+                    }),
+                    @ApiResponse(description = "FORBIDDEN", responseCode = "403", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                    }),
+                    @ApiResponse(description = "BAD REQUEST", responseCode = "400", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionResponse.class))
+                    })
+            },
+            security = {
+                    @SecurityRequirement(
+                            name = "bearerAuth"
+                    )
+            }
+    )
     public ResponseEntity<ListResponse> getBlogList(@RequestBody BlogListRequest blogListRequest) {
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(blogService.blogList(blogListRequest)));
     }

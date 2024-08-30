@@ -1,8 +1,10 @@
 package com.bloggios.blog.implementation;
 
 import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
+import com.bloggios.blog.constants.BeanConstants;
 import com.bloggios.blog.dao.implementation.esimplementation.LikeDocumentDao;
 import com.bloggios.blog.document.LikeDocument;
+import com.bloggios.blog.payload.response.CountResponse;
 import com.bloggios.blog.payload.response.LikeResponse;
 import com.bloggios.blog.processor.implementation.DoLikeProcessor;
 import com.bloggios.blog.processor.implementation.DoUnlikeProcessor;
@@ -10,6 +12,7 @@ import com.bloggios.blog.service.LikeService;
 import com.bloggios.blog.utils.ValueCheckerUtil;
 import com.bloggios.blog.validator.implementation.businessvalidator.LikeTypeStringValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -45,5 +48,13 @@ public class LikeServiceImplementation implements LikeService {
             likeResponse = doLikeProcessor.process(destinationId, likeFor, authenticatedUser.getUserId());
         }
         return CompletableFuture.completedFuture(likeResponse);
+    }
+
+    @Override
+    @Async(BeanConstants.ASYNC_TASK_EXTERNAL_POOL)
+    public CompletableFuture<CountResponse> countLikes(String destinationId) {
+        ValueCheckerUtil.isValidUUID(destinationId);
+        long likesCount = likeDocumentDao.countLikeDocumentByDestinationId(destinationId);
+        return CompletableFuture.completedFuture(new CountResponse(likesCount));
     }
 }

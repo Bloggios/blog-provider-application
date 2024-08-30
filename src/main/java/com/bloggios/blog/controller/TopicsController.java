@@ -1,9 +1,16 @@
 package com.bloggios.blog.controller;
 
 import com.bloggios.blog.constants.EndpointConstants;
+import com.bloggios.blog.payload.response.ExceptionResponse;
+import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.payload.response.TopicsListResponse;
 import com.bloggios.blog.service.TopicsService;
 import com.bloggios.blog.utils.AsyncUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +38,22 @@ public class TopicsController {
     }
 
     @GetMapping
+    @Operation(
+            responses = {
+                    @ApiResponse(description = "SUCCESS", responseCode = "200", content = @Content(
+                            mediaType = "application/json", schema = @Schema(implementation = TopicsListResponse.class)
+                    )),
+                    @ApiResponse(description = "No Content", responseCode = "401", content = {
+                            @Content(schema = @Schema(implementation = Void.class))
+                    }),
+                    @ApiResponse(description = "FORBIDDEN", responseCode = "403", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+                    }),
+                    @ApiResponse(description = "BAD REQUEST", responseCode = "400", content = {
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = ExceptionResponse.class))
+                    })
+            }
+    )
     public ResponseEntity<TopicsListResponse> getTags() {
         return ResponseEntity.ok(AsyncUtils.getAsyncResult(topicsService.tagsList()));
     }

@@ -37,4 +37,5 @@ public class BlogResponseForList {
     private Date dateUpdated;
     private List<TopicsNested> topics = new ArrayList<>();
     private String coverImage;
+    private long likes;
 }

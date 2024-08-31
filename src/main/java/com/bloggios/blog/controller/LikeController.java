@@ -2,22 +2,22 @@ package com.bloggios.blog.controller;
 
 import com.bloggios.authenticationconfig.payload.AuthenticatedUser;
 import com.bloggios.blog.constants.EndpointConstants;
-import com.bloggios.blog.payload.response.CountResponse;
 import com.bloggios.blog.payload.response.ExceptionResponse;
 import com.bloggios.blog.payload.response.LikeResponse;
 import com.bloggios.blog.service.LikeService;
 import com.bloggios.blog.utils.AsyncUtils;
-import com.bloggios.elasticsearch.configuration.payload.response.ListResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Owner - Rohit Parihar and Bloggios

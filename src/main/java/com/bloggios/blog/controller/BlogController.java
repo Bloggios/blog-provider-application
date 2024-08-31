@@ -5,7 +5,6 @@ import com.bloggios.blog.constants.EndpointConstants;
 import com.bloggios.blog.payload.request.BlogListRequest;
 import com.bloggios.blog.payload.request.BlogRequest;
 import com.bloggios.blog.payload.response.ExceptionResponse;
-import com.bloggios.blog.payload.response.LikeResponse;
 import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.service.BlogService;
 import com.bloggios.blog.utils.AsyncUtils;

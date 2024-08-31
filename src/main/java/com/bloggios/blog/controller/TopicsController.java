@@ -2,7 +2,6 @@ package com.bloggios.blog.controller;
 
 import com.bloggios.blog.constants.EndpointConstants;
 import com.bloggios.blog.payload.response.ExceptionResponse;
-import com.bloggios.blog.payload.response.ModuleResponse;
 import com.bloggios.blog.payload.response.TopicsListResponse;
 import com.bloggios.blog.service.TopicsService;
 import com.bloggios.blog.utils.AsyncUtils;
@@ -10,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

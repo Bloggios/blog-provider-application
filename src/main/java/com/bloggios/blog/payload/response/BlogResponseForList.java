@@ -38,4 +38,6 @@ public class BlogResponseForList {
     private List<TopicsNested> topics = new ArrayList<>();
     private String coverImage;
     private long likes;
+    private long followers;
+    private long following;
 }

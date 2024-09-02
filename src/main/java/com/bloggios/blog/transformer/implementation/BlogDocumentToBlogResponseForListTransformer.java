@@ -52,7 +52,7 @@ public class BlogDocumentToBlogResponseForListTransformer implements Transform<B
         blogResponseList.setProfileTag(profileInternalResponse.getProfileTag());
         blogResponseList.setProfileImage(profileInternalResponse.getProfileImage());
         blogResponseList.setBadge(profileInternalResponse.isBadge());
-        blogResponseList.setLikes(likeCountCompletableFuture.join());
+        blogResponseList.setLikes(likeCountCompletableFuture.join() != null ? likeCountCompletableFuture.join() : 0);
         blogResponseList.setFollowers(profileInternalResponse.getFollowers());
         blogResponseList.setFollowing(profileInternalResponse.getFollowing());
         return blogResponseList;

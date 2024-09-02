@@ -44,4 +44,5 @@ public class BlogResponse {
     private String seoTitle;
     private String canonicalUrl;
     private String chapterName;
+    private Long likes;
 }

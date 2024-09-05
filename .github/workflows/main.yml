@@ -68,8 +68,8 @@ jobs:
                rm /root/microservices/blog-provider-application/src/main/resources/security/privkey.pem
                /root/microservices/blog-provider-application/src/main/resources/security/pubkey.pem
                set -e
-               cp /root/secrets/certificates/privkey.pem /root/microservices/blog-provider-application/src/main/resources/security
-               cp /root/secrets/certificates/pubkey.pem /root/microservices/blog-provider-application/src/main/resources/security
+               cp /root/secrets/certificates/privkey.pem /root/microservices/blog-provider-application/src/main/resources/security/
+               cp /root/secrets/certificates/pubkey.pem /root/microservices/blog-provider-application/src/main/resources/security/
 
       - name: Generating Docker Image for Bloggios
         uses: appleboy/ssh-action@master
